@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Virtual Exhibits | Hartford Bound</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&amp;family=Inter:wght@300;400;600&amp;family=Material+Icons&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#D1D35E",
+                        secondary: "#509EC8",
+                        accent: "#72B591",
+                    },
+                    fontFamily: {
+                        display: ["Playfair Display", "serif"],
+                        sans: ["Inter", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+<style type="text/tailwindcss">
+        :root {
+            --hb-blue: #509EC8;
+            --hb-yellow: #D1D35E;
+            --hb-green: #72B591;
+        }
+        .exhibit-panel-ratio {
+            aspect-ratio: 24/36;
+        }
+        .flow-line {
+            height: 4px;
+            width: 40px;
+            display: inline-block;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #509EC8;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900 font-sans min-h-screen">
+<nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-16">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center">
+<span class="text-xs font-bold text-white uppercase">HB</span>
+</div>
+<span class="text-xl font-display font-bold tracking-tight text-secondary">Hartford Bound</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium hover:text-accent transition-colors" href="#">Stories</a>
+<a class="text-sm font-medium hover:text-accent transition-colors" href="#">Maps</a>
+<a class="text-sm font-medium hover:text-accent transition-colors" href="#">Timeline</a>
+<a class="text-sm font-medium text-secondary border-b-2 border-secondary" href="#">Exhibits</a>
+<div class="relative group">
+<button class="flex items-center gap-1 text-sm font-medium text-slate-600">
+<span class="material-symbols-outlined text-lg">search</span>
+</button>
+</div>
+</div>
+<div class="md:hidden">
+<span class="material-icons">menu</span>
+</div>
+</div>
+</div>
+</nav>
+<header class="bg-[#509EC8] text-white py-12 shadow-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col items-center text-center">
+<div class="flex gap-2 mb-4">
+<span class="flow-line bg-[#D1D35E]"></span>
+<span class="flow-line bg-[#72B591]"></span>
+<span class="flow-line bg-white"></span>
+</div>
+<h1 class="text-4xl md:text-5xl font-display font-bold tracking-tight">
+                    HARTFORD BOUND <span class="text-[#D1D35E] italic">Exhibits</span>
+</h1>
+<p class="mt-4 text-white/90 max-w-2xl font-light italic text-lg">
+                    Step through the digital corridors of Hartford's past. Explore curated visual narratives documenting the evolution of our city.
+                </p>
+</div>
+</div>
+</header>
+<section class="bg-white pt-16 pb-8">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-6 uppercase tracking-tight">
+                The Great Migration to the North End
+            </h2>
+<div class="w-20 h-1.5 bg-secondary mx-auto mb-8"></div>
+<p class="text-lg md:text-xl text-slate-600 leading-relaxed font-light max-w-3xl mx-auto">
+                During the mid-20th century, thousands of Black Southerners relocated to Hartford in search of industrial opportunity and social refuge. This exhibit explores the specific geographic and cultural shifts that defined the North End as a cornerstone of the city’s African American life, examining both the vibrancy of the community and the structural challenges of segregation.
+            </p>
+</div>
+</section>
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<section class="relative mb-20 flex flex-col items-center">
+<div class="w-full flex items-center justify-center gap-4 md:gap-12 max-w-6xl relative">
+<div class="hidden lg:block absolute left-0 w-32 exhibit-panel-ratio opacity-40 grayscale blur-[1px] rounded overflow-hidden border border-slate-200 shadow-sm pointer-events-none">
+<img alt="Previous Panel" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiVpMCemYP8y7iQfR3Z8HUhpqCNKV5DfJpLuJ00UUpmRvEh9FnYQvfjYq0HRl4ms8L3CXlB4M-00GGAaHTvMzJdFb8WthFdx2ZYXMfbtcsqkY_GRvoxamPoDXn2qqUTto4ViIGqVje-079xz0f14GXdpw9v7Iz-MnsIWNQhcqI58NzEfIaJORdE_3Ky47ArTUBx9ybog0nhZKk7HoCoORI_3w4hWNJbzAibZH7WNIpXQXiwNaEetiDrqZOl87a6PUHu4RZ13_ORi3y"/>
+</div>
+<button class="z-10 w-12 h-12 rounded-full bg-white shadow-xl border border-slate-100 flex items-center justify-center text-secondary hover:bg-secondary hover:text-white transition-all transform hover:scale-110">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<div class="exhibit-panel-ratio w-full max-w-[480px] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-sm border-[12px] border-white relative overflow-hidden group z-10">
+<div class="absolute inset-0 bg-slate-50 flex flex-col">
+<div class="relative h-3/5 bg-slate-200 overflow-hidden">
+<img alt="Historical Map" class="w-full h-full object-cover grayscale sepia-[0.1]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAB8A24cDy185ZQNCZ-u1b-NV-KT0kVllb4VDDXTUkC6QwnrHLAaE0D0nU-i73GEyvbJxDKzLegRDi_k6wL4fm95ySP7PAKvowM46RtjnYciIbIrpwoghYnauJeKL--M5nB1XAuNzxLWjcSbw9Xyg8n2dJu7Q6lJyN5l2vOcY1Xh__Puo4L4VhwJMMIPVAidb1eO05oJPFrbBsmQE4PPnh69PEjl58aOrjqP18mtN4lRs3-F9ItaBolUcejrpGZgfDnuxy9qxvgPIvV"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+<div class="absolute bottom-6 left-8 right-8 text-white">
+<span class="text-[10px] uppercase tracking-widest font-bold text-[#D1D35E] mb-2 block">Part 1: The Arrival</span>
+<h2 class="text-3xl font-display font-bold leading-tight">North End Arrivals</h2>
+</div>
+</div>
+<div class="p-8 flex-1 bg-white">
+<div class="w-12 h-1 bg-accent mb-6"></div>
+<p class="text-slate-700 leading-relaxed text-sm font-light">
+                                Between 1910 and 1970, the demographic landscape of Hartford shifted dramatically. This panel explores the initial waves of the Great Migration, focusing on the development of vibrant community centers along Main Street and Albany Avenue. Archival photographs capture the resilience and entrepreneurship of new residents establishing roots in the capital city.
+                            </p>
+<div class="mt-8 flex justify-between items-end">
+<div class="text-[10px] text-slate-400 font-mono tracking-widest">PANEL 04 / 12</div>
+<span class="material-symbols-outlined text-slate-300">museum</span>
+</div>
+</div>
+</div>
+<div class="absolute inset-0 ring-1 ring-inset ring-black/5 pointer-events-none"></div>
+</div>
+<button class="z-10 w-12 h-12 rounded-full bg-white shadow-xl border border-slate-100 flex items-center justify-center text-secondary hover:bg-secondary hover:text-white transition-all transform hover:scale-110">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+<div class="hidden lg:block absolute right-0 w-32 exhibit-panel-ratio opacity-40 grayscale blur-[1px] rounded overflow-hidden border border-slate-200 shadow-sm pointer-events-none">
+<img alt="Next Panel" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzoXkHcIQhckHs3_GjPxSxloBcNgSjVWof8zeI0mcQ_Jl9OPeqi0IdeCugCGxHssniKvKOrfqBL3-iIf5uGZ4HT3xL3pBSzNCie8nqxa9AD5dcvPEo1s8mOYqAWZ0a8IzapBmasVMCm7He7tEzVKrF7-h6pKAbYEv8PoFpLk5N1f-rYaq3K_ktxN1eyczQ-kSzw0KOuCogooitQX9Vhruh_oxhLx8XnGZMHrZujpRTCd2wTL4mVUzfTitv5ZyX2mD47-W77Si18Nkh"/>
+</div>
+</div>
+<div class="flex gap-2 mt-10">
+<span class="w-2 h-2 rounded-full bg-slate-200"></span>
+<span class="w-2 h-2 rounded-full bg-slate-200"></span>
+<span class="w-2 h-2 rounded-full bg-slate-200"></span>
+<span class="w-8 h-2 rounded-full bg-secondary"></span>
+<span class="w-2 h-2 rounded-full bg-slate-200"></span>
+<span class="w-2 h-2 rounded-full bg-slate-200"></span>
+</div>
+</section>
+<section>
+<div class="flex items-center justify-between mb-8 border-b border-slate-100 pb-4">
+<div class="flex items-center gap-3">
+<h3 class="text-sm font-bold uppercase tracking-[0.2em] text-slate-500">Collection Selector</h3>
+<span class="h-4 w-px bg-slate-200"></span>
+<span class="text-xs text-slate-400">5 Series Available</span>
+</div>
+<div class="flex gap-6">
+<button class="text-xs font-bold text-secondary hover:text-accent underline underline-offset-4">View All Collections</button>
+<div class="flex gap-2">
+<button class="p-1 text-slate-300 hover:text-secondary"><span class="material-symbols-outlined text-lg">west</span></button>
+<button class="p-1 text-slate-300 hover:text-secondary"><span class="material-symbols-outlined text-lg">east</span></button>
+</div>
+</div>
+</div>
+<div class="flex gap-6 overflow-x-auto pb-6 custom-scrollbar snap-x">
+<div class="min-w-[260px] snap-start group cursor-pointer">
+<div class="relative aspect-[16/10] rounded-lg overflow-hidden border-4 border-[#509EC8] shadow-md mb-3">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0x7_uQcZMtedP5cYXn76Au01BjPIlcoa6x6UKwF40hWFVsUt_7P4Je3WqYrhVT_xQb_d6IJYBCofSzg8IY8o7CQvFLRfDvp-wq388FHbmj19dQ3WKWP_v41IE4vI5ujPBoUgI4ni5d0hSrw-9Cx5XI5rtR4OX0xO72VU72zAfjh3nuflihR8A-S3XCxQStdiCT6mx0uQ56voX8GO9TIO6RnZWnL3UC0yqbm7CQGr-c4G3Qd6yoGKD4c7_QnKm2Zrg_mQJnpSb9iRi"/>
+<div class="absolute inset-0 bg-[#509EC8]/10 group-hover:bg-transparent transition-colors"></div>
+</div>
+<h4 class="font-bold text-sm text-slate-900 group-hover:text-secondary transition-colors">The Great Migration</h4>
+<p class="text-[10px] text-slate-500 uppercase font-semibold mt-1">1915 — 1940</p>
+</div>
+<div class="min-w-[260px] snap-start group cursor-pointer">
+<div class="relative aspect-[16/10] rounded-lg overflow-hidden border border-slate-100 shadow-sm mb-3 hover:border-[#72B591] transition-all">
+<img class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiVpMCemYP8y7iQfR3Z8HUhpqCNKV5DfJpLuJ00UUpmRvEh9FnYQvfjYq0HRl4ms8L3CXlB4M-00GGAaHTvMzJdFb8WthFdx2ZYXMfbtcsqkY_GRvoxamPoDXn2qqUTto4ViIGqVje-079xz0f14GXdpw9v7Iz-MnsIWNQhcqI58NzEfIaJORdE_3Ky47ArTUBx9ybog0nhZKk7HoCoORI_3w4hWNJbzAibZH7WNIpXQXiwNaEetiDrqZOl87a6PUHu4RZ13_ORi3y"/>
+</div>
+<h4 class="font-bold text-sm text-slate-900 group-hover:text-secondary transition-colors">Housing Justice</h4>
+<p class="text-[10px] text-slate-500 uppercase font-semibold mt-1">1945 — 1968</p>
+</div>
+<div class="min-w-[260px] snap-start group cursor-pointer">
+<div class="relative aspect-[16/10] rounded-lg overflow-hidden border border-slate-100 shadow-sm mb-3 hover:border-[#72B591] transition-all">
+<img class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzoXkHcIQhckHs3_GjPxSxloBcNgSjVWof8zeI0mcQ_Jl9OPeqi0IdeCugCGxHssniKvKOrfqBL3-iIf5uGZ4HT3xL3pBSzNCie8nqxa9AD5dcvPEo1s8mOYqAWZ0a8IzapBmasVMCm7He7tEzVKrF7-h6pKAbYEv8PoFpLk5N1f-rYaq3K_ktxN1eyczQ-kSzw0KOuCogooitQX9Vhruh_oxhLx8XnGZMHrZujpRTCd2wTL4mVUzfTitv5ZyX2mD47-W77Si18Nkh"/>
+</div>
+<h4 class="font-bold text-sm text-slate-900 group-hover:text-secondary transition-colors">Urban Landscapes</h4>
+<p class="text-[10px] text-slate-500 uppercase font-semibold mt-1">1890 — 1920</p>
+</div>
+<div class="min-w-[260px] snap-start group cursor-pointer">
+<div class="relative aspect-[16/10] rounded-lg overflow-hidden border border-slate-100 shadow-sm mb-3 hover:border-[#72B591] transition-all">
+<img class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4HNaNAtuACDsIlmFogQtnF3w--HtvJSQnkmHQvaZ169r1fJ3og5eK-SKrrbEsIJkft0D28IKEVGxamC7eAHtvsPsRITSHrHZFYujlhOVjP078AaWfaboVKaX4QOznp_t2Z-sKA9BtuzJ43eEgmfBtEtZCM9AgnOCz5RsZZEUuMjL_ofOTElRUhE_nHJIsKaK06hqIA26aigLP3Sy8azBOxZaLF7UA2DTK93HEIfr1ww53N9sYNOJufTMGy1hDmgFxNPlNecjFfBte"/>
+</div>
+<h4 class="font-bold text-sm text-slate-900 group-hover:text-secondary transition-colors">Labor &amp; Industry</h4>
+<p class="text-[10px] text-slate-500 uppercase font-semibold mt-1">1900 — 1950</p>
+</div>
+<div class="min-w-[260px] snap-start group cursor-pointer">
+<div class="relative aspect-[16/10] rounded-lg overflow-hidden border border-slate-100 shadow-sm mb-3 hover:border-[#72B591] transition-all">
+<img class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApPzKlbREXUjDhxBk-pmYmZXG1HokM16J-TEcHq7V3KrrHvjiJz38UzkZdLFc8ZFH5BXfvGjFEDRtAEF_SgZ9HR3aHEFEIuUKegMt2nB2NMB_lxPI8bGePceNe0B6fMCou4nJHUfWFOpoLygSRN-P8wqkiXP4ThxZxdJ_sZIlveuRVptvNma9pmHCEEZCP1LpArEr6-frYB7uAyPOC9erbmZl1PIKIoer_V6muGxrfgVqZ78Q7DmhwK3x6_OLdvUWORmF4pEHK7J-t"/>
+</div>
+<h4 class="font-bold text-sm text-slate-900 group-hover:text-secondary transition-colors">Schools &amp; Segregation</h4>
+<p class="text-[10px] text-slate-500 uppercase font-semibold mt-1">1960 — 1980</p>
+</div>
+</div>
+</section>
+<section class="mt-24 grid grid-cols-1 md:grid-cols-2 gap-16 border-t border-slate-100 pt-16">
+<div>
+<h3 class="text-xl font-display font-bold text-secondary mb-5 flex items-center gap-3">
+<span class="material-symbols-outlined">info</span>
+                    About the Exhibits
+                </h3>
+<p class="text-slate-600 text-base leading-relaxed font-light">
+                    Our virtual exhibits utilize digitized archives from the Connecticut State Library and Hartford History Center. Each panel is meticulously designed to provide historical context to the spatial data presented throughout the Hartford Bound project. We aim to bridge the gap between geographic data and lived experience.
+                </p>
+</div>
+<div class="bg-[#D1D35E]/10 p-10 rounded-2xl border border-[#D1D35E]/30 shadow-sm">
+<h3 class="text-sm font-bold uppercase tracking-widest text-slate-800 mb-4">Educational Resources</h3>
+<p class="text-sm text-slate-600 mb-8 leading-relaxed">Download guided discussion questions, primary source worksheets, and high-resolution copies of these panels for classroom use.</p>
+<button class="w-full sm:w-auto bg-[#72B591] text-white px-8 py-3 rounded-lg font-bold text-xs uppercase tracking-[0.15em] hover:bg-[#509EC8] transition-all shadow-md">
+                    Download Resource Pack (PDF)
+                </button>
+</div>
+</section>
+</main>
+<footer class="bg-slate-50 border-t border-slate-200 py-16 mt-24">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col md:flex-row justify-between items-center gap-10">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center shadow-sm">
+<span class="text-white font-bold text-base">HB</span>
+</div>
+<div>
+<h4 class="font-display font-bold text-xl text-secondary leading-tight">Hartford Bound</h4>
+<p class="text-[10px] text-slate-400 uppercase tracking-[0.25em] font-semibold">Mapping Justice &amp; History</p>
+</div>
+</div>
+<div class="flex gap-10">
+<a class="text-sm text-slate-600 hover:text-accent transition-colors font-semibold" href="#">Stories</a>
+<a class="text-sm text-slate-600 hover:text-accent transition-colors font-semibold" href="#">Maps</a>
+<a class="text-sm text-slate-600 hover:text-accent transition-colors font-semibold" href="#">Repository</a>
+<a class="text-sm text-slate-600 hover:text-accent transition-colors font-semibold" href="#">About</a>
+</div>
+<div class="text-slate-400 text-[10px] uppercase tracking-widest font-medium">
+                    © 2024 Hartford Bound Project.
+                </div>
+</div>
+</div>
+</footer>
+
+</body></html>

@@ -1,0 +1,245 @@
+@import "tailwindcss";
+
+/* Mapbox GL Styles - Required for maps to display correctly */
+@import "mapbox-gl/dist/mapbox-gl.css";
+
+/* Custom Tailwind Configuration */
+@theme {
+  --color-primary: #D1D35E;
+  --color-mint: #72B591;
+  --color-sky: #509EC8;
+  --color-background-light: #FFFFFF;
+  --color-background-dark: #0F172A;
+
+  --font-display: "Open Sans", sans-serif;
+  --font-sans: "Open Sans", sans-serif;
+
+  --radius: 0.5rem;
+}
+
+/* Base Styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-background-light);
+    color: #000000;
+    margin: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .container-custom {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-custom {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-custom {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-sans {
+    font-family: var(--font-sans);
+  }
+}
+
+/* Material Symbols */
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+/* Timeline Overrides */
+.vertical-timeline-element-date {
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+  font-size: 1.25rem !important;
+  color: #334155 !important;
+}
+
+.vertical-timeline-element-content .vertical-timeline-element-date {
+  padding: 0 !important;
+}
+
+.vertical-timeline::before {
+  width: 3px !important;
+}
+
+.timeline-date {
+  opacity: 1 !important;
+}
+
+/* Small dot anchors */
+.timeline-dot {
+  width: 16px !important;
+  height: 16px !important;
+  margin-left: -8px !important;
+  top: 22px !important;
+}
+
+/* Turn the default arrow into a leader line */
+.vertical-timeline-element-content-arrow {
+  border: none !important;
+  height: 2px !important;
+  width: 48px !important;
+  background: #cbd5e1 !important;
+  top: 24px !important;
+  transform: none !important;
+}
+
+/* Desktop two-column: position leader lines toward the center spine */
+@media only screen and (min-width: 1170px) {
+  .vertical-timeline--two-columns .vertical-timeline-element:nth-child(odd) .vertical-timeline-element-content-arrow {
+    right: -48px !important;
+    left: auto !important;
+  }
+  .vertical-timeline--two-columns .vertical-timeline-element:nth-child(even) .vertical-timeline-element-content-arrow {
+    left: -48px !important;
+    right: auto !important;
+  }
+}
+
+/* Mobile: leader line from card to the left-aligned dot */
+@media only screen and (max-width: 1169px) {
+  .timeline-dot {
+    margin-left: 6px !important;
+    left: 0 !important;
+  }
+  .vertical-timeline-element-content-arrow {
+    left: -48px !important;
+    right: auto !important;
+  }
+}
+
+/* Maps Page Components */
+@layer components {
+  .map-icon-overlay {
+    opacity: 0.1;
+    pointer-events: none;
+    user-select: none;
+    position: absolute;
+    font-family: 'Material Symbols Outlined';
+    font-size: 4rem;
+  }
+
+  .story-card-yellow {
+    background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+    border-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  }
+
+  .story-card-green {
+    background-color: color-mix(in srgb, var(--color-mint) 10%, transparent);
+    border-color: color-mix(in srgb, var(--color-mint) 20%, transparent);
+  }
+
+  .story-card-blue {
+    background-color: color-mix(in srgb, var(--color-sky) 10%, transparent);
+    border-color: color-mix(in srgb, var(--color-sky) 20%, transparent);
+  }
+
+  .path-dash {
+    stroke-dasharray: 8, 12;
+    stroke-width: 2.5;
+    fill: none;
+  }
+
+  .handwriting-overlay {
+    font-family: 'Great Vibes', cursive;
+    opacity: 0.12;
+    pointer-events: none;
+    user-select: none;
+    line-height: 1.2;
+    transform: rotate(-5deg);
+    font-size: 2.2rem;
+  }
+
+  .sketch-bg {
+    background-image: radial-gradient(circle at 2px 2px, rgba(0,0,0,0.05) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+
+  .arcgis-full-width {
+    width: 100%;
+    height: 800px;
+    background: #f1f5f9;
+  }
+
+  .exhibit-panel-ratio {
+    aspect-ratio: 24/36;
+  }
+
+  .flow-line {
+    height: 4px;
+    width: 40px;
+    display: inline-block;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-sky);
+    border-radius: 10px;
+  }
+
+  .triple-line {
+    height: 3px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .triple-line div:nth-child(1) {
+    background-color: rgba(0, 0, 0, 0.1);
+    height: 1px;
+  }
+
+  .triple-line div:nth-child(2) {
+    background-color: rgba(0, 0, 0, 0.05);
+    height: 1px;
+  }
+
+  .triple-line div:nth-child(3) {
+    background-color: rgba(0, 0, 0, 0.05);
+    height: 1px;
+  }
+}

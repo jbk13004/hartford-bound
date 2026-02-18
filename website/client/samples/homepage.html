@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hartford Bound | Mapping Stories of Race, Migration, and Mobility</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#D1D35E",
+                        mint: "#72B591",
+                        sky: "#509EC8",
+                        "background-light": "#FFFFFF",
+                        "background-dark": "#0F172A",
+                    },
+                    fontFamily: {
+                        display: ["Playfair Display", "serif"],
+                        sans: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                    },
+                },
+            },
+        };
+    </script>
+<style type="text/tailwindcss">
+        :root {
+            --primary-color: #D1D35E;
+            --mint-color: #72B591;
+            --sky-color: #509EC8;
+        }
+        .map-container {
+            background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBn_4WjAxZu94me_rytg0x12j6V382dUlhN0rOaV2Z0YqcyaxmNPXzsNkj2hdXK0L0Fv2aYwMZnpERyGDcguJT5oWXxqvrOxgyQCMsZeee9gP5MDDg_oywO_pkOpLDSNojJGypfP33BR_urrCCPVqZ75rP_D5Ahy-0u-vUaGuxYCQWFPnLjNlATla5oAPVXBJLOCxJVZvl-a1Uos2jEWMfy1N5dMw8WQasrCWlXTDo_iTHI-P1Nqg_6oM-5F4n-IS35Vnskn_2UOfRE);
+            background-size: cover;
+            background-position: center;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .migration-path {
+            stroke-dasharray: 8 12;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.1));
+        }
+    </style>
+</head>
+<body class="font-sans bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 transition-colors duration-300 relative overflow-x-hidden">
+<nav class="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-20">
+<div class="flex items-center gap-4">
+<img alt="Hartford Bound Logo" class="h-12 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkByxdxeijxmdmSEp5uJOoBPPRpG7fWtoER34LdQzSAVn6DDHk2W9SMPL8i70Yp-YZxRI_TfXqfBpOlfJjPJIB06GEXauwzKZN3IovEPJnBr_1NurxCE7yP-ZaCSwUlVh24Xr4WzC7CUlJou0r6P0rHjL6p3TdLCIkAZZlQl4m5myhKkWnszvHBpB_ub-l6VHXbejFsNcgmo44VDDo7pxmGxGbfIpClPgo4dL59aauyj3NlqHszp52Tf--LkfreT5C9pK6Sc6pDsF6"/>
+<span class="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white hidden md:block">Hartford Bound</span>
+</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-medium hover:text-sky transition-colors" href="#">Stories</a>
+<a class="font-medium hover:text-sky transition-colors" href="#">Maps</a>
+<a class="font-medium hover:text-sky transition-colors" href="#">Timeline</a>
+<a class="font-medium hover:text-sky transition-colors" href="#">About</a>
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" id="theme-toggle">
+<span class="material-symbols-outlined dark:hidden">dark_mode</span>
+<span class="material-symbols-outlined hidden dark:block">light_mode</span>
+</button>
+</div>
+<div class="md:hidden flex items-center">
+<button class="p-2 text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<div class="absolute inset-0 pointer-events-none z-10 overflow-hidden">
+<svg class="w-full h-full min-h-[2500px]" preserveAspectRatio="none" viewBox="0 0 1440 2500" xmlns="http://www.w3.org/2000/svg">
+<path class="migration-path fill-none stroke-[var(--sky-color)] stroke-[3]" d="M720,400 C720,550 1200,600 1200,850 C1200,1100 240,1050 240,1300 C240,1550 1200,1650 1200,1950 C1200,2250 240,2300 240,2500"></path>
+<path class="migration-path fill-none stroke-[var(--mint-color)] stroke-[3] opacity-60" d="M735,400 C735,565 1220,615 1220,865 C1220,1115 260,1065 260,1315 C260,1565 1220,1665 1220,1965 C1220,2265 260,2315 260,2515"></path>
+<path class="migration-path fill-none stroke-[var(--primary-color)] stroke-[3] opacity-40" d="M705,400 C705,535 1180,585 1180,835 C1180,1085 220,1035 220,1285 C220,1535 1180,1635 1180,1935 C1180,2235 220,2285 220,2485"></path>
+</svg>
+</div>
+<header class="relative">
+<div class="relative w-full h-[60vh] md:h-[75vh] overflow-hidden">
+<img alt="Diverse silhouettes of people walking against the Hartford skyline" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR5LoYsmFfu0kEY3s0whM1OZVuLtsp670RKRgTTGBy0MC0xdY9TmMyWJUYz6OPAZRAhAoxp-P5sBmxd3uqhZgvNX_2HcLEWXWVL_iqpNLCsW7Azf_9tqwLbWDeqlfu_F-CJVsgfweJWBFPHvtZeyz3t7SnLkgeKDv1GVE8pwstOP2Ovr7df9NTeNS6VdKCyKORkrOtB6ZF7nu3pVot--AFoJNn_PUKV5uoQLWadTyqtvkKKAr7qs8qYzK7puM1cGFIRVy-wBp8hmF6"/>
+<div class="absolute inset-0 bg-slate-900/30 flex flex-col items-center justify-center text-center p-4">
+<h1 class="font-display text-5xl md:text-8xl font-bold text-white drop-shadow-2xl mb-8">Hartford Bound</h1>
+<div class="flex flex-wrap justify-center gap-4 relative z-20">
+<a class="px-6 py-2.5 rounded-full border border-white/60 bg-white/10 backdrop-blur-md text-white text-sm font-semibold tracking-wide hover:bg-white hover:text-slate-900 transition-all duration-300 uppercase" href="#stories">
+                    Explore Stories
+                </a>
+<a class="px-6 py-2.5 rounded-full border border-white/60 bg-white/10 backdrop-blur-md text-white text-sm font-semibold tracking-wide hover:bg-white hover:text-slate-900 transition-all duration-300 uppercase" href="#maps">
+                    Explore Maps
+                </a>
+</div>
+</div>
+</div>
+<div class="relative z-20 bg-primary py-16 md:py-24 px-4 shadow-lg mx-4 md:mx-20 rounded-3xl -mt-12 md:-mt-20">
+<div class="max-w-5xl mx-auto text-center">
+<h2 class="font-display text-3xl md:text-5xl font-bold text-slate-900 mb-8 leading-tight">
+                Mapping Stories of Race, Migration, and Mobility in Hartford, Connecticut
+            </h2>
+<p class="text-slate-900 font-medium text-lg md:text-xl leading-relaxed max-w-4xl mx-auto opacity-90">
+                Hartford, Connecticut attracted three waves of internal and transnational migrations of African American, Puerto Rican, and West Indian communities that transformed the city's racial and ethnic landscape. This project explores the history of migration, housing, settlement, community formation, and succession through the lens of Hartford, one of America's wealthiest cities at the end of the Civil War.
+            </p>
+</div>
+</div>
+</header>
+<main class="relative z-20">
+<section class="py-24 md:py-32 bg-transparent" id="maps">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-8 rounded-3xl inline-block w-full border border-slate-100 dark:border-slate-800">
+<h2 class="font-display text-4xl font-bold mb-4">Interactive History</h2>
+<p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    Navigate through the city's historical landscape. Each pin represents a pivotal moment, landmark, or individual that shaped Hartford's trajectory.
+                </p>
+</div>
+<div class="relative rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white dark:border-slate-800 h-[700px]">
+<div class="map-container w-full h-full flex items-center justify-center relative">
+<div class="absolute inset-0 bg-sky/5"></div>
+<div class="absolute top-[30%] left-[40%] group cursor-pointer z-30">
+<span class="material-symbols-outlined text-sky text-5xl drop-shadow-lg fill-1">location_on</span>
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-80 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-5 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto border border-slate-100 dark:border-slate-700 transform translate-y-2 group-hover:translate-y-0">
+<img alt="Addie Brown Portrait" class="w-full h-40 object-cover rounded-xl mb-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOXfCmOT0XZiBpOif8PnBkuhTQ6J3P9tMrBtlUX2i8vA_2O9rUwuBLzLxIux8wSpn030YL2IWGZgzBQ5rzfaAmpUrjDpjeluvR9XxY2mWUlSXDcKDZHFJTwiNkZYnVaYA76eEjS1WQHWfE4Ud1DuX5bCobAXA8PsdnXRjNS23gQK2jLyn9icq9hJAHlfpljFLZOAMoYdybWB2ckONBch9LfT-7vcVgzd8sMGeZ6hvqqDzGX1t4koV5JKoMWU1h4T3HiZppRoTtmkmC"/>
+<h3 class="font-bold text-xl mb-2 text-slate-900 dark:text-white font-display">Addie Brown</h3>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-5 leading-relaxed">Domestic worker whose peripatetic lifestyle reflects the restrictive nature of late 19th-century labor.</p>
+<div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-700 pt-4">
+<a class="text-xs font-bold text-sky uppercase tracking-wider hover:opacity-80 transition-opacity" href="#">Related Story</a>
+<a class="text-xs font-bold text-sky uppercase tracking-wider hover:opacity-80 transition-opacity" href="#">View Map</a>
+</div>
+</div>
+</div>
+<div class="absolute top-[55%] left-[65%] group cursor-pointer z-20">
+<span class="material-symbols-outlined text-primary text-5xl drop-shadow-lg fill-1">location_on</span>
+</div>
+<div class="absolute bottom-[40%] left-[25%] group cursor-pointer z-20">
+<span class="material-symbols-outlined text-mint text-5xl drop-shadow-lg fill-1">location_on</span>
+</div>
+<div class="absolute bottom-8 right-8 z-30">
+<button class="bg-white/90 dark:bg-slate-800/90 backdrop-blur text-slate-900 dark:text-white px-6 py-3 rounded-full font-bold shadow-xl border border-slate-200 dark:border-slate-700 flex items-center gap-2 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-xl">zoom_out_map</span>
+                            Full Screen Map
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="pb-32 text-center">
+<div class="max-w-4xl mx-auto px-4">
+<div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-12 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-xl">
+<h3 class="font-display text-3xl font-bold mb-6">Continue the Journey</h3>
+<p class="text-slate-600 dark:text-slate-400 mb-10 text-lg">
+                    Dive deeper into the archives or follow the thematic paths that connect our shared history.
+                </p>
+<div class="flex flex-col sm:flex-row justify-center gap-6">
+<a class="inline-flex items-center justify-center px-8 py-4 bg-sky text-white rounded-full font-bold hover:shadow-lg transition-all gap-2 group" href="#">
+                        Browse the Archive
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+<a class="inline-flex items-center justify-center px-8 py-4 bg-mint text-white rounded-full font-bold hover:shadow-lg transition-all gap-2 group" href="#">
+                        About the Project
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">info</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-slate-900 text-white py-20 relative z-30">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid md:grid-cols-4 gap-12 mb-16">
+<div class="col-span-2">
+<div class="flex items-center gap-4 mb-8">
+<img alt="Hartford Bound Logo" class="h-10 w-auto invert brightness-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHHBNb4yKItnc3mP7zo-_7QMP0rsX4Og0RYxQhO5ZBKl_LAJv9XIjY6lgHieR1Ba8p_rQWDRwIpUHU5LY8PkgnCJG2BvZDjJytlR6kICjwZzy6voiQs0Qmyc7l9Kq5eCYoSyECr0sihdrk4wnLBU1fO2zt5K-JZv6EODTh5LzJ4GdM0DUQw9xLI2e9rocvisPU7V37byknyniMGe9hizJ1Ngk3M36obS9UnIWWX2C50BnfU2K67pml2s-U1IiTmhzhEkuZhdWP8YKt"/>
+<span class="font-display text-2xl font-bold">Hartford Bound</span>
+</div>
+<p class="text-slate-400 max-w-md leading-relaxed">
+                    A digital humanities collaboration dedicated to uncovering and visualizing the complex histories of migration and race in Hartford, Connecticut.
+                </p>
+</div>
+<div>
+<h4 class="font-bold mb-6 text-primary">Explore</h4>
+<ul class="space-y-4 text-slate-400">
+<li><a class="hover:text-white transition-colors" href="#">Timeline of Events</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Interactive Maps</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Digital Archive</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Story Repository</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6 text-primary">Connect</h4>
+<ul class="space-y-4 text-slate-400">
+<li><a class="hover:text-white transition-colors" href="#">About the Project</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Our Partners</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Contact Us</a></li>
+<li class="flex gap-4 mt-6">
+<a class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-sky transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">share</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-slate-800 text-slate-500 text-sm flex flex-col md:flex-row justify-between gap-4">
+<p>© 2024 Hartford Bound. All rights reserved.</p>
+<div class="flex gap-8">
+<a class="hover:text-slate-300" href="#">Privacy Policy</a>
+<a class="hover:text-slate-300" href="#">Terms of Service</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        html.classList.add('dark');
+    } else {
+        html.classList.remove('dark');
+    }
+    themeToggle.addEventListener('click', () => {
+        if (html.classList.contains('dark')) {
+            html.classList.remove('dark');
+            localStorage.theme = 'light';
+        } else {
+            html.classList.add('dark');
+            localStorage.theme = 'dark';
+        }
+    });
+</script>
+
+</body></html>
