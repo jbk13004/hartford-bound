@@ -1,4 +1,9 @@
 export { ExhibitsView } from './components/ExhibitsView'
-export { exhibitsApi, useGetExhibitCollectionsQuery } from './api/exhibitsApi'
-export { useExhibits } from './hooks/useExhibits'
-export type { ExhibitCollection } from './types/exhibit'
+export { exhibitsApi, useGetExhibitsQuery } from './api/exhibitsApi'
+export { useExhibits, type UseExhibitsResult } from './hooks/useExhibits'
+export {
+  toExhibit,
+  exhibitToAsset,
+  type Exhibit,
+  type ExhibitRow,
+} from './types/exhibit'
