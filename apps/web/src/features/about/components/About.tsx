@@ -33,13 +33,14 @@ export function About() {
             <div className="bg-white p-8 rounded-xl border border-mint/20 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex flex-col items-center md:items-start md:flex-row md:space-x-6">
                 <div>
-                  <h3 className="text-2xl font-bold text-sky mb-1">Dr. Elena Rodriguez</h3>
+                  <h3 className="text-2xl font-bold text-sky mb-1">Dr. Fiona Vernal</h3>
                   <p className="text-mint font-medium mb-4">Co-Principal Investigator</p>
                   <p className="text-slate-600 text-sm leading-relaxed">
-                    A historian specializing in 20th-century urban migration patterns, Dr. Rodriguez
-                    has spent over a decade documenting the diaspora communities of New England. Her
-                    research focuses on the intersection of housing policy and racial identity in
-                    mid-sized industrial cities.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                    fugiat nulla pariatur.
                   </p>
                 </div>
               </div>
@@ -48,13 +49,14 @@ export function About() {
             <div className="bg-white p-8 rounded-xl border border-mint/20 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex flex-col items-center md:items-start md:flex-row md:space-x-6">
                 <div>
-                  <h3 className="text-2xl font-bold text-sky mb-1">Dr. Marcus Thorne</h3>
+                  <h3 className="text-2xl font-bold text-sky mb-1">James Kolb</h3>
                   <p className="text-mint font-medium mb-4">Co-Principal Investigator</p>
                   <p className="text-slate-600 text-sm leading-relaxed">
-                    Dr. Thorne is a Digital Humanities expert with a focus on Geographic Information
-                    Systems (GIS). He leads the technical mapping and spatial analysis components of
-                    Hartford Bound, ensuring historical data is translated into accessible visual
-                    media for public engagement.
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+                    doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
+                    veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
+                    voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
                   </p>
                 </div>
               </div>

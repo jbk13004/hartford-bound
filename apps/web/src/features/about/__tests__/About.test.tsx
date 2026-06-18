@@ -7,8 +7,8 @@ describe('About', () => {
   it('renders the team section without any placeholder headshot imagery', () => {
     const { container } = renderWithProviders(<About />)
 
-    expect(screen.getByText('Dr. Elena Rodriguez')).toBeInTheDocument()
-    expect(screen.getByText('Dr. Marcus Thorne')).toBeInTheDocument()
+    expect(screen.getByText('Dr. Fiona Vernal')).toBeInTheDocument()
+    expect(screen.getByText('James Kolb')).toBeInTheDocument()
 
     // No fake aida-public headshots, and no <img> headshots at all.
     expect(container.innerHTML).not.toContain('lh3.googleusercontent.com/aida-public')
