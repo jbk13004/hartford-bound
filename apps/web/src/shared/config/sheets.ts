@@ -11,4 +11,5 @@ const seed = (name: string): string => `${import.meta.env.BASE_URL}data/${name}.
 
 export const SHEET_URLS = {
   stories: import.meta.env.VITE_SHEETS_STORIES_URL ?? seed('stories'),
+  timeline: import.meta.env.VITE_SHEETS_TIMELINE_URL ?? seed('timeline'),
 } as const
