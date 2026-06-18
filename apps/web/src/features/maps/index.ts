@@ -3,11 +3,15 @@ export { MapAtlas } from './components/MapAtlas'
 export { MapDetail } from './components/MapDetail'
 export {
   mapsApi,
-  useGetMapCollectionsQuery,
-  useGetAtlasItemsQuery,
-  useGetAtlasItemByIdQuery,
+  useGetMapsQuery,
+  useGetMapByIdQuery,
 } from './api/mapsApi'
-export { useMapCollections } from './hooks/useMapCollections'
-export { useAtlas } from './hooks/useAtlas'
+export { useAtlas, type AtlasSort, type AtlasOptions } from './hooks/useAtlas'
 export { useMapDetail } from './hooks/useMapDetail'
-export type { MapCollection, AtlasItem, MapColorScheme } from './types/map'
+export {
+  toMap,
+  mapToAsset,
+  mapDecade,
+  type HartMap,
+  type MapRow,
+} from './types/map'

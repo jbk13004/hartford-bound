@@ -4,6 +4,7 @@ import { storiesApi } from '@/features/stories'
 import { timelineApi } from '@/features/timeline'
 import { archiveApi } from '@/features/archive'
 import { mapsApi } from '@/features/maps'
+import { collectionsApi } from '@/features/collections'
 import { exhibitsApi } from '@/features/exhibits'
 import { tagsApi } from '@/features/tags'
 
@@ -15,6 +16,7 @@ export const makeStore = () =>
       [timelineApi.reducerPath]: timelineApi.reducer,
       [archiveApi.reducerPath]: archiveApi.reducer,
       [mapsApi.reducerPath]: mapsApi.reducer,
+      [collectionsApi.reducerPath]: collectionsApi.reducer,
       [exhibitsApi.reducerPath]: exhibitsApi.reducer,
       [tagsApi.reducerPath]: tagsApi.reducer,
     },
@@ -24,6 +26,7 @@ export const makeStore = () =>
         timelineApi.middleware,
         archiveApi.middleware,
         mapsApi.middleware,
+        collectionsApi.middleware,
         exhibitsApi.middleware,
         tagsApi.middleware,
       ),
