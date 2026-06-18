@@ -3,18 +3,21 @@ import { setupListeners } from '@reduxjs/toolkit/query'
 import { storiesApi } from '@/features/stories'
 import { timelineApi } from '@/features/timeline'
 import { archiveApi } from '@/features/archive'
+import { mapsApi } from '@/features/maps'
 
 export const store = configureStore({
   reducer: {
     [storiesApi.reducerPath]: storiesApi.reducer,
     [timelineApi.reducerPath]: timelineApi.reducer,
     [archiveApi.reducerPath]: archiveApi.reducer,
+    [mapsApi.reducerPath]: mapsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       storiesApi.middleware,
       timelineApi.middleware,
       archiveApi.middleware,
+      mapsApi.middleware,
     ),
 })
 
