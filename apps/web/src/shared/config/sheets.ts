@@ -55,8 +55,4 @@ export const SHEET_URLS = {
    * The timeline itself is derived from every dated asset; this only adds extras.
    */
   timeline: import.meta.env.VITE_SHEETS_TIMELINE_URL ?? seed('timeline'),
-
-  // ── Legacy (still consumed by features not yet rewritten) ────────────────────
-  /** The atlas grid is procedural placeholder data; seed-only (no live override). */
-  atlas: seed('atlas'),
 } as const

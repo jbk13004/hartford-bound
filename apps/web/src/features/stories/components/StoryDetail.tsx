@@ -1,9 +1,47 @@
 import { useParams, Link } from 'react-router-dom'
+import { FlickrImage } from '@/shared/components/FlickrImage'
+import { usePrimaryTag } from '@/features/tags'
+import { formatDates } from '@/shared/lib/dates'
 import { useStory } from '../hooks/useStory'
+import type { StoryBlock } from '../types/storyBlock'
+
+function StoryBody({ block }: { block: StoryBlock }) {
+  switch (block.type) {
+    case 'heading':
+      return <h2 className="font-display text-sky">{block.text}</h2>
+    case 'quote':
+      return (
+        <blockquote className="border-l-4 border-primary pl-6 italic text-slate-700">
+          {block.text}
+        </blockquote>
+      )
+    case 'photo':
+      return (
+        <figure className="not-prose my-8">
+          <FlickrImage
+            url={block.image_url}
+            size="b"
+            alt={block.caption || ''}
+            className="w-full rounded-xl"
+          />
+          {block.caption && (
+            <figcaption className="mt-2 text-xs text-slate-500 text-center">
+              {block.caption}
+            </figcaption>
+          )}
+        </figure>
+      )
+    default:
+      return <p>{block.text}</p>
+  }
+}
 
 export function StoryDetail() {
   const { storyId } = useParams()
-  const { story, related, isLoading, isError } = useStory(storyId ?? '')
+  const { story, blocks, related, linkedMaps, isLoading, isError } = useStory(
+    storyId ?? '',
+  )
+  const { colorFor } = usePrimaryTag()
 
   if (isLoading) {
     return (
@@ -48,10 +86,11 @@ export function StoryDetail() {
               <div className="relative w-56 h-56 md:w-64 md:h-64 lg:w-72 lg:h-72">
                 <div className="absolute -top-4 -left-4 w-full h-full bg-primary rounded-3xl rotate-3 opacity-50" />
                 <div className="absolute top-0 left-0 w-full h-full bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-white">
-                  <img
-                    alt={`${story.title} Profile`}
-                    className="w-full h-full object-cover grayscale contrast-125"
-                    src={story.image}
+                  <FlickrImage
+                    url={story.hero_image_url}
+                    size="c"
+                    alt={story.title}
+                    className="w-full h-full object-cover"
                   />
                 </div>
               </div>
@@ -83,7 +122,7 @@ export function StoryDetail() {
 
               <div className="mt-6 flex flex-wrap gap-3 justify-center lg:justify-start">
                 <span className="px-4 py-1.5 bg-primary text-slate-900 rounded-full text-sm font-semibold">
-                  {story.dates}
+                  {formatDates(story.dates_label, story.year_start, story.year_end)}
                 </span>
                 {story.tags.map((tag) => (
                   <span
@@ -105,8 +144,8 @@ export function StoryDetail() {
           {/* Article */}
           <article className="lg:col-span-8">
             <div className="prose prose-lg prose-headings:font-display prose-headings:text-sky prose-p:leading-relaxed prose-p:text-slate-700">
-              {story.body.length > 0 ? (
-                story.body.map((paragraph, i) => <p key={i}>{paragraph}</p>)
+              {blocks.length > 0 ? (
+                blocks.map((block, i) => <StoryBody key={i} block={block} />)
               ) : (
                 <p>{story.excerpt}</p>
               )}
@@ -115,6 +154,34 @@ export function StoryDetail() {
 
           {/* Sidebar */}
           <aside className="lg:col-span-4 space-y-6">
+            {linkedMaps.length > 0 && (
+              <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                <div className="flex items-center space-x-2 mb-6">
+                  <span className="material-symbols-outlined text-primary">map</span>
+                  <h2 className="text-lg font-bold text-slate-900">Maps in this Story</h2>
+                </div>
+                <div className="space-y-3">
+                  {linkedMaps.map((map) => (
+                    <Link
+                      key={map.id}
+                      to={`/maps/${map.id}`}
+                      className="flex items-center gap-3 p-2 rounded-lg bg-slate-50 hover:bg-primary/5 transition-colors border border-slate-100"
+                    >
+                      <div className="w-14 h-14 shrink-0 rounded overflow-hidden bg-slate-200">
+                        <FlickrImage
+                          url={map.image_url}
+                          size="q"
+                          alt={map.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <span className="text-sm font-bold text-sky">{map.title}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
               <div className="flex items-center space-x-2 mb-6">
                 <span className="material-symbols-outlined text-mint">auto_stories</span>
@@ -124,15 +191,16 @@ export function StoryDetail() {
                 {related.map((relStory) => (
                   <Link
                     key={relStory.id}
-                    to={`/stories/${relStory.id}`}
+                    to={relStory.href}
                     className="block p-4 rounded-lg bg-slate-50 hover:bg-mint/5 transition-colors border border-slate-100 hover:border-mint/30"
+                    style={{ borderLeftColor: colorFor(relStory.tags), borderLeftWidth: 3 }}
                   >
                     <h3 className="text-sm font-bold text-sky mb-1">{relStory.title}</h3>
-                    <p className="text-[11px] text-slate-500 line-clamp-2">
-                      {relStory.excerpt}
-                    </p>
                   </Link>
                 ))}
+                {related.length === 0 && (
+                  <p className="text-[11px] text-slate-400">No related stories yet.</p>
+                )}
               </div>
               <Link
                 to="/stories"
