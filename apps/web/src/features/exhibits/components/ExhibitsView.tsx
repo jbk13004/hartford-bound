@@ -86,6 +86,50 @@ export function ExhibitsView() {
             </button>
           </div>
 
+          {/* Filmstrip — thumbnails of the selected exhibit's panels, sitting
+              directly under the canvas. Click to jump; the derived
+              `PANEL nn / total` counter lives here. */}
+          <div className="w-full max-w-4xl mt-6">
+            <div className="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+              <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-slate-500">
+                Canvases
+              </h3>
+              <span className="text-[10px] text-slate-400 font-mono tracking-widest">
+                PANEL {String(total ? safeIndex + 1 : 0).padStart(2, '0')} / {total}
+              </span>
+            </div>
+
+            <div className="flex justify-center gap-3 overflow-x-auto pb-4 custom-scrollbar snap-x">
+              {panels.map((panel, i) => {
+                const isActive = i === safeIndex
+                return (
+                  <button
+                    type="button"
+                    key={`${panel.exhibit_id}-${panel.sort_order}`}
+                    aria-label={panel.title}
+                    aria-current={isActive ? true : undefined}
+                    onClick={() => setPanelIndex(i)}
+                    className={`shrink-0 snap-start w-28 aspect-[4/3] rounded-md overflow-hidden bg-slate-100 transition-all ${
+                      isActive
+                        ? 'ring-2 ring-sky ring-offset-2'
+                        : 'opacity-70 hover:opacity-100'
+                    }`}
+                  >
+                    <FlickrImage
+                      url={panel.image_url}
+                      size="q"
+                      alt={panel.title}
+                      linkToSource={false}
+                      className={`w-full h-full object-cover transition-all ${
+                        isActive ? '' : 'grayscale'
+                      }`}
+                    />
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
           {/* Caption block: eyebrow + title + a single short caption line. */}
           <div className="w-full max-w-3xl mt-8 text-center">
             {current?.label && (
@@ -104,48 +148,8 @@ export function ExhibitsView() {
           </div>
         </section>
 
-        {/* Filmstrip — thumbnails of the selected exhibit's panels; click to jump.
-            The derived `PANEL nn / total` counter lives here. */}
-        <section className="mb-20">
-          <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
-            <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-slate-500">Canvases</h3>
-            <span className="text-[10px] text-slate-400 font-mono tracking-widest">
-              PANEL {String(total ? safeIndex + 1 : 0).padStart(2, '0')} / {total}
-            </span>
-          </div>
-
-          <div className="flex gap-3 overflow-x-auto pb-4 custom-scrollbar snap-x">
-            {panels.map((panel, i) => {
-              const isActive = i === safeIndex
-              return (
-                <button
-                  type="button"
-                  key={`${panel.exhibit_id}-${panel.sort_order}`}
-                  aria-label={panel.title}
-                  aria-current={isActive ? true : undefined}
-                  onClick={() => setPanelIndex(i)}
-                  className={`shrink-0 snap-start w-28 aspect-[4/3] rounded-md overflow-hidden bg-slate-100 transition-all ${
-                    isActive
-                      ? 'ring-2 ring-sky ring-offset-2'
-                      : 'opacity-70 hover:opacity-100'
-                  }`}
-                >
-                  <FlickrImage
-                    url={panel.image_url}
-                    size="q"
-                    alt={panel.title}
-                    className={`w-full h-full object-cover transition-all ${
-                      isActive ? '' : 'grayscale'
-                    }`}
-                  />
-                </button>
-              )
-            })}
-          </div>
-        </section>
-
         {/* Exhibit Selector strip — active exhibit highlighted; click to select. */}
-        <section>
+        <section className="mt-8">
           <div className="flex items-center justify-between mb-8 border-b border-slate-100 pb-4">
             <div className="flex items-center gap-3">
               <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-slate-500">
@@ -177,6 +181,7 @@ export function ExhibitsView() {
                       url={exhibit.cover_image_url}
                       size="z"
                       alt={exhibit.title}
+                      linkToSource={false}
                       className={`w-full h-full object-cover transition-all ${
                         exhibit.active
                           ? ''

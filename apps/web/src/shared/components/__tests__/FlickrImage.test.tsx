@@ -15,6 +15,14 @@ describe('FlickrImage', () => {
     expect(link).toHaveAttribute('href', 'https://www.flickr.com/photos//53778710552')
   })
 
+  it('renders a bare image with no attribution link when linkToSource is false', () => {
+    render(<FlickrImage url={VALID} size="b" alt="A historic photo" linkToSource={false} />)
+
+    const img = screen.getByRole('img', { name: 'A historic photo' })
+    expect(img).toHaveAttribute('src', expect.stringContaining('live.staticflickr.com'))
+    expect(screen.queryByRole('link')).not.toBeInTheDocument()
+  })
+
   it('renders a clean placeholder (no broken img, no link) for a blank URL', () => {
     render(<FlickrImage url="" size="b" alt="Missing" />)
 

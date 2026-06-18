@@ -51,6 +51,22 @@ const columns = [
     },
   }),
   columnHelper.display({
+    id: 'tags',
+    header: 'Tags',
+    cell: ({ row }) => (
+      <div className="flex flex-wrap gap-1">
+        {row.original.tags.map((tag) => (
+          <span
+            key={tag}
+            className="text-[8px] font-bold tracking-widest uppercase px-1.5 py-0.5 bg-white/50 text-slate-600 rounded border border-slate-200"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    ),
+  }),
+  columnHelper.display({
     id: 'download',
     header: '',
     // Renders nothing when download_url is blank (DriveDownload returns null).
@@ -63,6 +79,7 @@ const COLUMN_CLASS: Record<string, string> = {
   thumb: 'w-20',
   title: 'w-full',
   category: 'hidden sm:table-cell',
+  tags: 'hidden md:table-cell',
   download: 'text-right whitespace-nowrap',
 }
 
