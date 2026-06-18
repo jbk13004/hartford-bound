@@ -13,4 +13,7 @@ export const SHEET_URLS = {
   stories: import.meta.env.VITE_SHEETS_STORIES_URL ?? seed('stories'),
   timeline: import.meta.env.VITE_SHEETS_TIMELINE_URL ?? seed('timeline'),
   archive: import.meta.env.VITE_SHEETS_ARCHIVE_URL ?? seed('archive'),
+  maps: import.meta.env.VITE_SHEETS_MAPS_URL ?? seed('maps'),
+  // The atlas grid is procedural placeholder data; seed-only (no live-sheet override).
+  atlas: seed('atlas'),
 } as const

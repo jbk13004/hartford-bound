@@ -1,93 +1,19 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { useAtlas, type AtlasSort } from '../hooks/useAtlas'
 
-// TODO: Collection titles will eventually come from Google Sheets
-const collectionTitles = {
-  'routes-and-roots': 'Routes and Roots Collection',
-  'hartford-through-time': 'Hartford Through Time Collection',
-  'housing': 'Housing Collection',
-  'flooding': 'Flooding Collection',
-}
-
-const mapTitles = [
-  '1910 Ward Map',
-  'HOLC Redlining',
-  '1890 Sewerage',
-  'Park River 1930',
-  'Zoning Plan 1926',
-  'Urban Renewal',
-  '1945 Housing',
-  '1950 Highways',
-  'Colonial Plot',
-  'Charter Oak',
-  'North End 1920',
-  'South Green',
-  'Frog Hollow',
-  'Blue Hills',
-  'Upper Albany',
-  'Asylum Hill',
-  'Downtown 1900',
-  'Manufacturing',
-  'Trolley Lines',
-  'Race Overlay',
-  'Income 1960',
-  'School Dist.',
-  'Flood Zone A',
-  '1936 Inundation',
-  'Park Systems',
-  'Keney Park',
-  'Elizabeth Park',
-  'Riverside Map',
-  '1970 Census',
-  'Industrial Park',
-  'Pratt & Whitney',
-  'Wethersfield',
-  'Windsor Line',
-  'Bloomfield Bnd',
-  'East Hartford',
-  'West Hartford',
-  'Property Value',
-  'Mortgage Data',
-  'Voting Blocks',
-  'Transit Hubs',
-]
-
-const tagPool = [
-  '#Housing',
-  '#Migration',
-  '#Redlining',
-  '#Economy',
-  '#Zoning',
-  '#Nature',
-]
-
-const quickFilterTags = [
-  '#Migration',
-  '#Housing',
-  '#Redlining',
-  '#Zoning',
-  '#Economy',
-]
-
-// Generate deterministic placeholder map items
-const mapItems = mapTitles.map((title, i) => ({
-  id: i,
-  title,
-  tag: tagPool[i % tagPool.length],
-  decade: `#19${((i * 7 + 3) % 9)}0s`,
-  image: `https://picsum.photos/seed/${i + 105}/400/400`,
-}))
-
-function MapAtlas() {
+export function MapAtlas() {
   const { collectionId } = useParams()
-  const collectionTitle = collectionId
-    ? collectionTitles[collectionId] || 'Map Collection'
-    : 'Complete Map Collection'
-
   const [searchQuery, setSearchQuery] = useState('')
-  const [viewMode, setViewMode] = useState('grid')
+  const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid')
   const [currentPage, setCurrentPage] = useState(1)
-  const [sortBy, setSortBy] = useState('chronological')
+  const [sortBy, setSortBy] = useState<AtlasSort>('chronological')
+
+  const { items, title, isLoading, isError } = useAtlas({
+    collectionId,
+    query: searchQuery,
+    sort: sortBy,
+  })
 
   return (
     <>
@@ -96,31 +22,25 @@ function MapAtlas() {
         <div
           className="absolute inset-0 opacity-[0.03] pointer-events-none"
           style={{
-            backgroundImage:
-              'radial-gradient(#000 1px, transparent 0)',
+            backgroundImage: 'radial-gradient(#000 1px, transparent 0)',
             backgroundSize: '24px 24px',
           }}
-        ></div>
+        />
         <div className="max-w-[1440px] mx-auto px-6 relative z-10">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
-            {/* Left: Title + Search */}
             <div className="flex-grow max-w-3xl">
-              {/* Breadcrumb */}
               <nav className="flex items-center space-x-2 text-[10px] font-bold uppercase tracking-widest text-slate-800/60 mb-4">
                 <Link to="/maps" className="hover:text-slate-900">
                   Maps
                 </Link>
-                <span className="material-symbols-outlined text-[12px]">
-                  chevron_right
-                </span>
-                <span className="text-slate-900">{collectionTitle}</span>
+                <span className="material-symbols-outlined text-[12px]">chevron_right</span>
+                <span className="text-slate-900">{title}</span>
               </nav>
 
               <h1 className="text-5xl font-display font-extrabold text-slate-900 mb-8 leading-tight">
-                {collectionTitle}
+                {title}
               </h1>
 
-              {/* Search + Filter */}
               <div className="flex gap-3">
                 <div className="relative flex-grow group">
                   <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
@@ -135,42 +55,30 @@ function MapAtlas() {
                   />
                 </div>
                 <button className="flex items-center gap-2 px-8 py-4 bg-slate-900 text-white rounded-lg font-bold text-xs uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl shadow-black/10">
-                  <span className="material-symbols-outlined text-lg">
-                    search
-                  </span>
+                  <span className="material-symbols-outlined text-lg">search</span>
                   Search
                 </button>
               </div>
             </div>
 
-            {/* Right: View Toggle + Tags */}
             <div className="flex flex-col items-start lg:items-end gap-6">
-              {/* View Toggle */}
               <div className="flex bg-black/5 p-1 rounded-lg backdrop-blur-sm border border-black/5">
                 <button
                   className={`flex items-center gap-2 px-6 py-2.5 rounded-md text-[10px] font-bold uppercase tracking-wider transition-all ${
-                    viewMode === 'grid'
-                      ? 'bg-sky text-white shadow-sm'
-                      : 'text-slate-700 hover:bg-black/5'
+                    viewMode === 'grid' ? 'bg-sky text-white shadow-sm' : 'text-slate-700 hover:bg-black/5'
                   }`}
                   onClick={() => setViewMode('grid')}
                 >
-                  <span className="material-symbols-outlined text-sm">
-                    grid_view
-                  </span>
+                  <span className="material-symbols-outlined text-sm">grid_view</span>
                   Grid View
                 </button>
                 <button
                   className={`flex items-center gap-2 px-6 py-2.5 rounded-md text-[10px] font-bold uppercase tracking-wider transition-all ${
-                    viewMode === 'map'
-                      ? 'bg-sky text-white shadow-sm'
-                      : 'text-slate-700 hover:bg-black/5'
+                    viewMode === 'map' ? 'bg-sky text-white shadow-sm' : 'text-slate-700 hover:bg-black/5'
                   }`}
                   onClick={() => setViewMode('map')}
                 >
-                  <span className="material-symbols-outlined text-sm">
-                    map
-                  </span>
+                  <span className="material-symbols-outlined text-sm">map</span>
                   Map View
                 </button>
               </div>
@@ -181,26 +89,23 @@ function MapAtlas() {
 
       {/* Triple Line Divider */}
       <div className="triple-line">
-        <div></div>
-        <div></div>
-        <div></div>
+        <div />
+        <div />
+        <div />
       </div>
 
       {/* Main Content */}
       <main className="max-w-[1440px] mx-auto px-6 py-12">
-        {/* Results Header */}
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-200">
           <h2 className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">
             Displaying Archive Results
           </h2>
           <div className="flex items-center gap-4">
-            <span className="text-[10px] font-bold text-slate-500 uppercase">
-              Sort by:
-            </span>
+            <span className="text-[10px] font-bold text-slate-500 uppercase">Sort by:</span>
             <select
               className="bg-transparent border-none text-[10px] font-bold uppercase tracking-widest p-0 pr-8 focus:ring-0 cursor-pointer text-slate-900"
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
+              onChange={(e) => setSortBy(e.target.value as AtlasSort)}
             >
               <option value="chronological">Chronological</option>
               <option value="alphabetical">Alphabetical</option>
@@ -209,38 +114,55 @@ function MapAtlas() {
           </div>
         </div>
 
-        {/* Atlas Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-8 gap-4">
-          {mapItems.map((item) => (
-            <Link
-              key={item.id}
-              to={`/maps/${item.id}`}
-              className="bg-white border border-slate-200 rounded transition-all hover:shadow-md hover:border-mint/40 group cursor-pointer block"
-            >
-              <div className="aspect-square bg-slate-200 overflow-hidden relative">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0"
-                />
-                <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
-              </div>
-              <div className="p-3">
-                <h3 className="text-[11px] font-bold text-slate-800 uppercase tracking-tight line-clamp-1 mb-1.5 group-hover:text-sky transition-colors">
-                  {item.title}
-                </h3>
-                <div className="flex gap-1.5">
-                  <span className="text-[8px] font-black text-sky uppercase tracking-tighter">
-                    {item.tag}
-                  </span>
-                  <span className="text-[8px] font-black text-slate-400 uppercase tracking-tighter">
-                    {item.decade}
-                  </span>
+        {isError ? (
+          <p className="text-center py-20 text-slate-500 font-medium">
+            Couldn&apos;t load the atlas. Please try again later.
+          </p>
+        ) : isLoading ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-8 gap-4">
+            {Array.from({ length: 16 }).map((_, i) => (
+              <div key={i} className="animate-pulse bg-white border border-slate-200 rounded">
+                <div className="aspect-square bg-slate-200" />
+                <div className="p-3 space-y-2">
+                  <div className="h-2 bg-slate-200 rounded" />
+                  <div className="h-2 bg-slate-200 rounded w-1/2" />
                 </div>
               </div>
-            </Link>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-8 gap-4">
+            {items.map((item) => (
+              <Link
+                key={item.id}
+                to={`/maps/${item.id}`}
+                className="bg-white border border-slate-200 rounded transition-all hover:shadow-md hover:border-mint/40 group cursor-pointer block"
+              >
+                <div className="aspect-square bg-slate-200 overflow-hidden relative">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0"
+                  />
+                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
+                </div>
+                <div className="p-3">
+                  <h3 className="text-[11px] font-bold text-slate-800 uppercase tracking-tight line-clamp-1 mb-1.5 group-hover:text-sky transition-colors">
+                    {item.title}
+                  </h3>
+                  <div className="flex gap-1.5">
+                    <span className="text-[8px] font-black text-sky uppercase tracking-tighter">
+                      {item.tag}
+                    </span>
+                    <span className="text-[8px] font-black text-slate-400 uppercase tracking-tighter">
+                      {item.decade}
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
 
         {/* Pagination */}
         <div className="mt-20 flex flex-col items-center gap-6 border-t border-slate-200 pt-12">
@@ -249,9 +171,7 @@ function MapAtlas() {
               className="w-10 h-10 flex items-center justify-center rounded border border-slate-200 text-slate-400 hover:border-mint hover:text-mint transition-all"
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             >
-              <span className="material-symbols-outlined text-xl">
-                chevron_left
-              </span>
+              <span className="material-symbols-outlined text-xl">chevron_left</span>
             </button>
             {[1, 2, 3, 4, 5].map((page) => (
               <button
@@ -270,18 +190,14 @@ function MapAtlas() {
               className="w-10 h-10 flex items-center justify-center rounded border border-slate-200 text-slate-400 hover:border-mint hover:text-mint transition-all"
               onClick={() => setCurrentPage((p) => Math.min(5, p + 1))}
             >
-              <span className="material-symbols-outlined text-xl">
-                chevron_right
-              </span>
+              <span className="material-symbols-outlined text-xl">chevron_right</span>
             </button>
           </div>
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
-            Viewing 1 &ndash; 40 of 192 total resources
+            {items.length} historical map {items.length === 1 ? 'layer' : 'layers'}
           </p>
         </div>
       </main>
     </>
   )
 }
-
-export default MapAtlas
