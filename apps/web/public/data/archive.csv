@@ -1,7 +1,7 @@
-id,title,category,date,thumbnail
-1,Archive Item 1,photographs,1920,https://via.placeholder.com/300x300
-2,Archive Item 2,documents,1945,https://via.placeholder.com/300x300
-3,Archive Item 3,maps,1880,https://via.placeholder.com/300x300
-4,Archive Item 4,oral histories,2020,https://via.placeholder.com/300x300
-5,Archive Item 5,photographs,1960,https://via.placeholder.com/300x300
-6,Archive Item 6,documents,1910,https://via.placeholder.com/300x300
+id,title,category,year_start,year_end,dates_label,tags,image_url,download_url,description
+albany-ave-storefronts,Albany Avenue Storefronts,photographs,1920,,,"migration, community",https://live.staticflickr.com/65535/53778710552_01f2058482_b.jpg,,"Black-owned storefronts along Albany Avenue during the early Great Migration era."
+fair-housing-petition,Fair Housing Petition,documents,1945,,,"housing, activism",https://live.staticflickr.com/65535/53778710552_01f2058482_b.jpg,https://drive.google.com/file/d/1AbCdEfGhIjKlMnOpQrStUvWxYz012345/view?usp=sharing,"A residents' petition demanding fair housing protections, scanned from the original."
+1880-sanborn-sheet,1880 Sanborn Map Sheet,maps,1880,,,"mobility, community",https://live.staticflickr.com/65535/53778710552_01f2058482_b.jpg,,"A Sanborn fire-insurance map sheet showing the North End street grid."
+brown-oral-history,Recollections of the North End,oral-histories,2020,,,"migration, community",https://live.staticflickr.com/65535/53778710552_01f2058482_b.jpg,https://drive.google.com/file/d/1ZyXwVuTsRqPoNmLkJiHgFeDcBa987654/view?usp=sharing,"An oral-history recording with a longtime North End resident (audio download)."
+school-busing-1960,"School Busing, 1960",photographs,1960,,,"education, race",https://live.staticflickr.com/65535/53778710552_01f2058482_b.jpg,,"Students boarding buses during the early years of Hartford school desegregation."
+union-charter-1910,Trades Union Charter,documents,1910,,,"labor",https://live.staticflickr.com/65535/53778710552_01f2058482_b.jpg,,"The founding charter of a Hartford trades union."

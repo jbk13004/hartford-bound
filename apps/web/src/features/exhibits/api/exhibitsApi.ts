@@ -1,11 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { csvBaseQuery, type CsvRow } from '@/shared/api/csvBaseQuery'
 import { SHEET_URLS } from '@/shared/config/sheets'
-import {
-  toExhibitCollection,
-  type ExhibitCollection,
-  type ExhibitCollectionRow,
-} from '../types/exhibit'
+import { toExhibit, type Exhibit, type ExhibitRow } from '../types/exhibit'
 
 export const exhibitsApi = createApi({
   reducerPath: 'exhibitsApi',
@@ -15,12 +11,12 @@ export const exhibitsApi = createApi({
   refetchOnReconnect: false,
   refetchOnMountOrArgChange: false,
   endpoints: (build) => ({
-    getExhibitCollections: build.query<ExhibitCollection[], void>({
+    getExhibits: build.query<Exhibit[], void>({
       query: () => SHEET_URLS.exhibits,
       transformResponse: (rows: CsvRow[]) =>
-        (rows as unknown as ExhibitCollectionRow[]).map(toExhibitCollection),
+        (rows as unknown as ExhibitRow[]).map(toExhibit),
     }),
   }),
 })
 
-export const { useGetExhibitCollectionsQuery } = exhibitsApi
+export const { useGetExhibitsQuery } = exhibitsApi

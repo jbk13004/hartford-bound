@@ -132,7 +132,13 @@ The data source is **published Google Sheets CSV** — there is no backend, so t
   `__tests__/`. Query by role / accessible name, not test IDs.
 - Cover: the `csvBaseQuery` parse/error behaviour, each API's row→domain mapping (MSW CSV →
   asserted domain objects), and major views (MSW-backed render). `src/test/` holds the MSW server,
-  handlers, setup, and the `renderWithProviders` helper (`makeStore()` gives each test an isolated store).
+  handlers, setup, and the `renderWithProviders` / `renderHookWithProviders` helpers
+  (`makeStore()` gives each test an isolated store; the hook variant also wraps a router).
+- **mapbox-gl does not render in jsdom.** To test a view/hook that uses it, `vi.mock('mapbox-gl', …)`
+  returning `{ default: { accessToken, Map, Marker } }` (it's consumed as a *default* export), then
+  import the component under test *after* the mock (`const { X } = await import('…')`) so the hook
+  picks up the stub. Assert the derivation (markers built/filtered) via a fake `Marker`, not the GL
+  DOM. See `features/home/__tests__/Homepage.test.tsx`.
 
 ### Enforcement
 - Never put a `fetch` / `axios` call inside a component or non-API hook — all data I/O goes through

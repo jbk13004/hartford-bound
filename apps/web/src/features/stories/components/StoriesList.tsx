@@ -1,48 +1,15 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { FlickrImage } from '@/shared/components/FlickrImage'
+import { usePrimaryTag } from '@/features/tags'
+import { formatDates } from '@/shared/lib/dates'
 import { useStoriesList } from '../hooks/useStoriesList'
-import type { StoryVariant } from '../types/story'
-
-interface VariantStyle {
-  cardClass: string
-  bgOverlay: string
-  gradientOverlay: string
-  titleText: string
-  dateText: string
-  linkText: string
-}
-
-const variantStyles: Record<StoryVariant, VariantStyle> = {
-  blue: {
-    cardClass: 'story-card-blue',
-    bgOverlay: 'bg-sky/20',
-    gradientOverlay: 'bg-gradient-to-t from-sky/90 via-sky/20 to-transparent',
-    titleText: 'text-white drop-shadow-md',
-    dateText: 'text-white/80',
-    linkText: 'text-sky group-hover:text-slate-900',
-  },
-  yellow: {
-    cardClass: 'story-card-yellow',
-    bgOverlay: 'bg-primary/20',
-    gradientOverlay: 'bg-gradient-to-t from-primary/90 via-primary/20 to-transparent',
-    titleText: 'text-slate-900 drop-shadow-sm',
-    dateText: 'text-slate-800/80',
-    linkText: 'text-slate-900 group-hover:text-sky',
-  },
-  green: {
-    cardClass: 'story-card-green',
-    bgOverlay: 'bg-mint/20',
-    gradientOverlay: 'bg-gradient-to-t from-mint/90 via-mint/20 to-transparent',
-    titleText: 'text-white drop-shadow-md',
-    dateText: 'text-white/80',
-    linkText: 'text-mint group-hover:text-slate-900',
-  },
-}
 
 export function StoriesList() {
   const [searchQuery, setSearchQuery] = useState('')
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid')
   const { stories, isLoading, isError } = useStoriesList(searchQuery)
+  const { colorFor } = usePrimaryTag()
 
   return (
     <>
@@ -156,29 +123,27 @@ export function StoriesList() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {stories.map((story) => {
-              const styles = variantStyles[story.variant]
+              const accent = colorFor(story.tags)
               return (
                 <article
                   key={story.id}
-                  className={`group flex flex-col rounded-lg overflow-hidden border transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${styles.cardClass}`}
+                  className="group flex flex-col rounded-lg overflow-hidden border border-slate-200 bg-white transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                  style={{ borderTopColor: accent, borderTopWidth: 4 }}
                 >
-                  <div className={`relative aspect-video overflow-hidden ${styles.bgOverlay}`}>
-                    <img
-                      alt={story.alt}
-                      className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90 transition-transform duration-700 group-hover:scale-105"
-                      src={story.image}
+                  <div className="relative aspect-video overflow-hidden bg-slate-100">
+                    <FlickrImage
+                      url={story.hero_image_url}
+                      size="z"
+                      alt={story.title}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className={`absolute inset-0 ${styles.gradientOverlay} opacity-80`} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                     <div className="absolute bottom-3 left-4 right-4">
-                      <h2
-                        className={`text-xl font-display font-extrabold uppercase tracking-tight ${styles.titleText}`}
-                      >
+                      <h2 className="text-xl font-display font-extrabold uppercase tracking-tight text-white drop-shadow-md">
                         {story.title}
                       </h2>
-                      <span
-                        className={`text-[8px] font-bold tracking-[0.2em] uppercase ${styles.dateText}`}
-                      >
-                        {story.dates}
+                      <span className="text-[8px] font-bold tracking-[0.2em] uppercase text-white/80">
+                        {formatDates(story.dates_label, story.year_start, story.year_end)}
                       </span>
                     </div>
                   </div>
@@ -198,7 +163,8 @@ export function StoriesList() {
                     </div>
                     <Link
                       to={`/stories/${story.id}`}
-                      className={`inline-flex items-center text-[9px] font-black uppercase tracking-[0.15em] transition-colors ${styles.linkText}`}
+                      className="inline-flex items-center text-[9px] font-black uppercase tracking-[0.15em] transition-colors"
+                      style={{ color: accent }}
                     >
                       Read Story
                       <span className="material-symbols-outlined ml-2 text-xs font-bold group-hover:translate-x-1 transition-transform">
