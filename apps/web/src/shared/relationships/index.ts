@@ -40,9 +40,15 @@ export function resolveIds<T>(ids: readonly string[], byId: Readonly<Record<stri
  * under each of its tags). The basis for "all assets tagged X".
  */
 export function buildReverseIndex(assets: readonly Asset[]): Map<string, Asset[]> {
-  // IMPLEMENTOR: for each asset, push it under every id in `asset.tags`.
-  void assets
-  return new Map()
+  const index = new Map<string, Asset[]>()
+  for (const asset of assets) {
+    for (const tagId of asset.tags) {
+      const bucket = index.get(tagId)
+      if (bucket) bucket.push(asset)
+      else index.set(tagId, [asset])
+    }
+  }
+  return index
 }
 
 /**
@@ -55,12 +61,17 @@ export function relatedByTags(
   all: readonly Asset[],
   limit?: number,
 ): Asset[] {
-  // IMPLEMENTOR: score each other asset by count of shared tag ids, drop zeros
-  // and self, sort by score desc (stable), then slice to `limit` if given.
-  void asset
-  void all
-  void limit
-  return []
+  const tags = new Set(asset.tags)
+  const scored = all
+    .map((candidate, index) => ({
+      candidate,
+      index,
+      score: candidate.tags.reduce((n, id) => (tags.has(id) ? n + 1 : n), 0),
+    }))
+    .filter((entry) => entry.candidate.id !== asset.id && entry.score > 0)
+    .sort((a, b) => b.score - a.score || a.index - b.index)
+    .map((entry) => entry.candidate)
+  return limit === undefined ? scored : scored.slice(0, limit)
 }
 
 /**
@@ -72,11 +83,21 @@ export function deriveTimeline(
   assets: readonly Asset[],
   events: readonly TimelineEvent[] = [],
 ): TimelineEntry[] {
-  // IMPLEMENTOR: map dated assets → TimelineEntry (year = year_start), map
-  // events → TimelineEntry (no href), concat, sort ascending by year.
-  void assets
-  void events
-  return []
+  const assetEntries: TimelineEntry[] = assets
+    .filter((a): a is Asset & { year_start: number } => a.year_start !== undefined)
+    .map((a) => ({
+      id: a.id,
+      year: a.year_start,
+      title: a.title,
+      href: a.href,
+      type: a.type,
+    }))
+  const eventEntries: TimelineEntry[] = events.map((e) => ({
+    id: e.id,
+    year: e.year,
+    title: e.title,
+  }))
+  return [...assetEntries, ...eventEntries].sort((a, b) => a.year - b.year)
 }
 
 /**
@@ -88,10 +109,21 @@ export function deriveMapMarkers(
   assets: readonly Asset[],
   tagsById: TagsById,
 ): MapMarker[] {
-  // IMPLEMENTOR: filter to assets with lat & lng; resolve primary tag (tags[0])
-  // → color/theme via tagsById, fall back to FALLBACK_TAG_COLOR / '' theme.
-  void assets
-  void tagsById
-  void FALLBACK_TAG_COLOR
-  return []
+  return assets
+    .filter(
+      (a): a is Asset & { lat: number; lng: number } =>
+        a.lat !== undefined && a.lng !== undefined,
+    )
+    .map((a) => {
+      const tag = a.tags[0] ? tagsById[a.tags[0]] : undefined
+      return {
+        id: a.id,
+        title: a.title,
+        href: a.href,
+        lat: a.lat,
+        lng: a.lng,
+        color: tag?.color ?? FALLBACK_TAG_COLOR,
+        theme: tag?.theme ?? '',
+      }
+    })
 }
