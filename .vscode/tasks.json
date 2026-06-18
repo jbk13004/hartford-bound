@@ -3,9 +3,11 @@
   "tasks": [
     {
       "label": "vite: dev server",
-      "type": "npm",
-      "script": "dev",
-      "path": "website/client",
+      "type": "shell",
+      "command": "yarn dev",
+      "options": {
+        "cwd": "${workspaceFolder}/apps/web"
+      },
       "isBackground": true,
       "problemMatcher": {
         "owner": "vite",
