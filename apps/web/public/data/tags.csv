@@ -1,0 +1,10 @@
+id,label,theme,color,description
+migration,Migration,migration,#72B591,"Movement of people into and through Hartford — the Great Migration north and immigration from abroad."
+labor,Labor,,#D1D35E,"Work, unions, and the economies that drew and held communities in Hartford."
+race,Race,race,#C26B5A,"Racial identity, segregation, and the color line in Hartford's neighborhoods and institutions."
+mobility,Mobility,mobility,#5A8FC2,"Roads, rail, redlining, and the physical movement that shaped where people could live."
+activism,Activism,race,#C26B5A,"Organizing, protest, and the fight for civil rights and community power."
+housing,Housing,mobility,#5A8FC2,"Where people lived — tenements, public housing, redlining, and displacement."
+education,Education,,#D1D35E,"Schools, segregation and integration, and the struggle over equal education."
+gender,Gender,,#B07FB0,"Women's work, family life, and gendered experience across Hartford's communities."
+community,Community,,#72B591,"Churches, mutual aid, and the institutions that held neighborhoods together."
