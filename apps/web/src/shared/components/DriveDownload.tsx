@@ -1,4 +1,4 @@
-import { parseDriveUrl } from '@/shared/lib/drive'
+import { driveDownloadUrl, parseDriveUrl } from '@/shared/lib/drive'
 
 export interface DriveDownloadProps {
   /** The pasted Drive share URL. Blank/unparseable → renders nothing. */
@@ -17,9 +17,9 @@ export function DriveDownload({ url, label }: DriveDownloadProps) {
   const parsed = parseDriveUrl(url)
   if (!parsed) return null
 
-  // IMPLEMENTOR: render an <a href={driveDownloadUrl(parsed.fileId)} download>
-  // with `label` (default "Download original"); keep the view URL available as
-  // the large-file fallback target.
-  void label
-  return null
+  return (
+    <a href={driveDownloadUrl(parsed.fileId)} download>
+      {label ?? 'Download original'}
+    </a>
+  )
 }
