@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { FlickrImage } from '@/shared/components/FlickrImage'
+import { decadeOf } from '@/shared/relationships'
 import { useAtlas, type AtlasSort } from '../hooks/useAtlas'
 
 export function MapAtlas() {
   const { collectionId } = useParams()
   const [searchQuery, setSearchQuery] = useState('')
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid')
-  const [currentPage, setCurrentPage] = useState(1)
   const [sortBy, setSortBy] = useState<AtlasSort>('chronological')
 
-  const { items, title, isLoading, isError } = useAtlas({
+  const { maps, title, isLoading, isError } = useAtlas({
     collectionId,
     query: searchQuery,
     sort: sortBy,
@@ -48,16 +49,12 @@ export function MapAtlas() {
                   </span>
                   <input
                     className="w-full pl-12 pr-4 py-4 bg-white/90 border-transparent rounded-lg focus:ring-2 focus:ring-sky focus:bg-white text-slate-900 text-sm transition-all shadow-sm"
-                    placeholder="Search across 40+ historical map layers..."
+                    placeholder="Search across historical map scans..."
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
                 </div>
-                <button className="flex items-center gap-2 px-8 py-4 bg-slate-900 text-white rounded-lg font-bold text-xs uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl shadow-black/10">
-                  <span className="material-symbols-outlined text-lg">search</span>
-                  Search
-                </button>
               </div>
             </div>
 
@@ -132,69 +129,49 @@ export function MapAtlas() {
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-8 gap-4">
-            {items.map((item) => (
-              <Link
-                key={item.id}
-                to={`/maps/${item.id}`}
-                className="bg-white border border-slate-200 rounded transition-all hover:shadow-md hover:border-mint/40 group cursor-pointer block"
-              >
-                <div className="aspect-square bg-slate-200 overflow-hidden relative">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0"
-                  />
-                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
-                </div>
-                <div className="p-3">
-                  <h3 className="text-[11px] font-bold text-slate-800 uppercase tracking-tight line-clamp-1 mb-1.5 group-hover:text-sky transition-colors">
-                    {item.title}
-                  </h3>
-                  <div className="flex gap-1.5">
-                    <span className="text-[8px] font-black text-sky uppercase tracking-tighter">
-                      {item.tag}
-                    </span>
-                    <span className="text-[8px] font-black text-slate-400 uppercase tracking-tighter">
-                      {item.decade}
-                    </span>
+            {maps.map((map) => {
+              const decade = decadeOf(map.year_start)
+              return (
+                <Link
+                  key={map.id}
+                  to={`/maps/${map.id}`}
+                  className="bg-white border border-slate-200 rounded transition-all hover:shadow-md hover:border-mint/40 group cursor-pointer block"
+                >
+                  <div className="aspect-square bg-slate-200 overflow-hidden relative">
+                    <FlickrImage
+                      url={map.image_url}
+                      size="w"
+                      alt={map.title}
+                      className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
                   </div>
-                </div>
-              </Link>
-            ))}
+                  <div className="p-3">
+                    <h3 className="text-[11px] font-bold text-slate-800 uppercase tracking-tight line-clamp-1 mb-1.5 group-hover:text-sky transition-colors">
+                      {map.title}
+                    </h3>
+                    <div className="flex gap-1.5">
+                      {map.tags[0] && (
+                        <span className="text-[8px] font-black text-sky uppercase tracking-tighter">
+                          {map.tags[0]}
+                        </span>
+                      )}
+                      {decade !== undefined && (
+                        <span className="text-[8px] font-black text-slate-400 uppercase tracking-tighter">
+                          {decade}s
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         )}
 
-        {/* Pagination */}
         <div className="mt-20 flex flex-col items-center gap-6 border-t border-slate-200 pt-12">
-          <div className="flex items-center space-x-2">
-            <button
-              className="w-10 h-10 flex items-center justify-center rounded border border-slate-200 text-slate-400 hover:border-mint hover:text-mint transition-all"
-              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-            >
-              <span className="material-symbols-outlined text-xl">chevron_left</span>
-            </button>
-            {[1, 2, 3, 4, 5].map((page) => (
-              <button
-                key={page}
-                className={`w-10 h-10 flex items-center justify-center rounded font-bold text-xs transition-all ${
-                  currentPage === page
-                    ? 'bg-mint text-white shadow-md'
-                    : 'border border-slate-200 hover:bg-slate-50'
-                }`}
-                onClick={() => setCurrentPage(page)}
-              >
-                {page}
-              </button>
-            ))}
-            <button
-              className="w-10 h-10 flex items-center justify-center rounded border border-slate-200 text-slate-400 hover:border-mint hover:text-mint transition-all"
-              onClick={() => setCurrentPage((p) => Math.min(5, p + 1))}
-            >
-              <span className="material-symbols-outlined text-xl">chevron_right</span>
-            </button>
-          </div>
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
-            {items.length} historical map {items.length === 1 ? 'layer' : 'layers'}
+            {maps.length} historical map {maps.length === 1 ? 'scan' : 'scans'}
           </p>
         </div>
       </main>
