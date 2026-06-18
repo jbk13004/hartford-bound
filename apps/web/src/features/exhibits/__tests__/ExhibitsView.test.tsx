@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { screen, waitFor, fireEvent } from '@testing-library/react'
+import { http, HttpResponse } from 'msw'
+import { server } from '@/test/server'
 import { renderWithProviders } from '@/test/utils'
 import { ExhibitsView } from '../components/ExhibitsView'
 
@@ -30,6 +32,26 @@ describe('ExhibitsView', () => {
     expect(screen.getByRole('heading', { name: 'Addie Brown' })).toBeInTheDocument()
     // map_ids → holc-redlining, ward-map-1910
     expect(screen.getByRole('heading', { name: 'HOLC Redlining' })).toBeInTheDocument()
+  })
+
+  it('renders a zero-count panel without crashing for an exhibit with no panels', async () => {
+    // An exhibit whose id matches no panel rows: the count is derived as 0, and
+    // the slideshow must render `PANEL 00 / 0` rather than crashing on `% 0`.
+    server.use(
+      http.get('*/data/exhibits.csv', () =>
+        HttpResponse.text(
+          `id,title,subtitle,year_start,year_end,dates_label,active,lat,lng,tags,story_ids,map_ids,cover_image_url
+no-panels,No Panels,An empty exhibit.,1900,1950,,TRUE,,,race,,,
+`,
+        ),
+      ),
+    )
+
+    renderWithProviders(<ExhibitsView />)
+
+    await waitFor(() => {
+      expect(screen.getByText(/PANEL 00 \/ 0/)).toBeInTheDocument()
+    })
   })
 
   it('switches exhibit when a different one is selected', async () => {

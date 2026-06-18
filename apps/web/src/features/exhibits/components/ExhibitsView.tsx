@@ -65,8 +65,7 @@ export function ExhibitsView() {
               <span className="material-symbols-outlined">chevron_left</span>
             </button>
 
-            {/* IMPLEMENTOR: preserve the framed-panel look from the prior design
-                (border, shadow, gradient overlay). Drive content from `current`. */}
+            {/* Framed panel: white border, drop shadow, gradient overlay — driven by `current`. */}
             <div className="exhibit-panel-ratio w-full max-w-[480px] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-sm border-[12px] border-white relative overflow-hidden group z-10">
               <div className="absolute inset-0 bg-slate-50 flex flex-col">
                 <div className="relative h-3/5 bg-slate-200 overflow-hidden">
@@ -124,8 +123,8 @@ export function ExhibitsView() {
           </section>
         )}
 
-        {/* Linked stories / maps rails (resolved from story_ids / map_ids). */}
-        {/* IMPLEMENTOR: style these rails; render nothing when the list is empty. */}
+        {/* Linked stories / maps rails (resolved from story_ids / map_ids); each rail
+            renders nothing when its list is empty. */}
         {linkedStories.length > 0 && (
           <section className="mb-12">
             <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-slate-500 mb-4">
