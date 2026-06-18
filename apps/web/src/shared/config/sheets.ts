@@ -54,5 +54,5 @@ export const SHEET_URLS = {
    * Optional context beats that are NOT assets (e.g. "1635 — Hartford Founded").
    * The timeline itself is derived from every dated asset; this only adds extras.
    */
-  timeline: import.meta.env.VITE_SHEETS_TIMELINE_URL ?? seed('timeline'),
+  timelineEvents: import.meta.env.VITE_SHEETS_TIMELINE_EVENTS_URL ?? seed('timeline_events'),
 } as const
