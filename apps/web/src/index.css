@@ -3,6 +3,31 @@
 /* Mapbox GL Styles - Required for maps to display correctly */
 @import "mapbox-gl/dist/mapbox-gl.css";
 
+/* Strip the default popup chrome (white padding + square corners) so our
+   custom card fills the popup edge-to-edge with its own rounding/shadow. */
+.mapboxgl-popup-content {
+  padding: 0;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: none;
+  background: transparent;
+}
+
+.mapboxgl-popup-close-button {
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #0f172a;
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Custom Tailwind Configuration */
 @theme {
   --color-primary: #D1D35E;

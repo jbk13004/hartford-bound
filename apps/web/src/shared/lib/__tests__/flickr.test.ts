@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { flickrPage, flickrSrc, parseFlickrUrl } from '../flickr'
+import { flickrSrc, parseFlickrUrl } from '../flickr'
 
 const VALID = 'https://live.staticflickr.com/65535/53778710552_01f2058482_b.jpg'
 
@@ -35,12 +35,5 @@ describe('flickrSrc', () => {
     expect(flickrSrc(parsed, 'k')).toBe(
       'https://live.staticflickr.com/65535/53778710552_01f2058482_k.jpg',
     )
-  })
-})
-
-describe('flickrPage', () => {
-  it('builds the attribution photo-page link', () => {
-    const parsed = parseFlickrUrl(VALID)!
-    expect(flickrPage(parsed)).toBe('https://www.flickr.com/photos//53778710552')
   })
 })

@@ -19,21 +19,25 @@ describe('useMapAssets', () => {
     expect(hrefs.some((h) => h.startsWith('/exhibits/'))).toBe(false)
   })
 
-  it('colors each marker by its primary tag', async () => {
+  it('carries each marker type and primary-tag theme', async () => {
     const { result } = renderHookWithProviders(() => useMapAssets())
 
     await waitFor(() => expect(result.current.isLoading).toBe(false))
     const { markers } = result.current
 
-    // james-mars' primary tag is `race` (#C26B5A, theme race).
+    // james-mars is a story; its primary tag `race` rolls up to theme race.
     const james = markers.find((m) => m.href === '/stories/james-mars')
-    expect(james?.color).toBe('#C26B5A')
+    expect(james?.type).toBe('story')
     expect(james?.theme).toBe('race')
 
-    // addie-brown's primary tag is `labor` (#D1D35E, blank theme).
+    // addie-brown is a story; its primary tag `labor` has a blank theme.
     const addie = markers.find((m) => m.href === '/stories/addie-brown')
-    expect(addie?.color).toBe('#D1D35E')
+    expect(addie?.type).toBe('story')
     expect(addie?.theme).toBe('')
+
+    // holc-redlining is a map.
+    const holc = markers.find((m) => m.href === '/maps/holc-redlining')
+    expect(holc?.type).toBe('map')
   })
 
   it('exposes the distinct non-empty themes present for theme filtering', async () => {

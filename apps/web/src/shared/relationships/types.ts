@@ -25,6 +25,8 @@ export interface Asset {
   lng?: number
   /** A Flickr static image URL (raw, as authored). */
   imageUrl?: string
+  /** Short blurb for the map-popup sneak peek. */
+  excerpt?: string
   /** Convenience: the primary tag id (`tags[0]`), if any. */
   primaryTag?: string
 }
@@ -54,8 +56,12 @@ export interface MapMarker {
   href: string
   lat: number
   lng: number
-  /** Primary tag's display color (or a fallback). */
-  color: string
+  /** Asset type — drives the marker icon (story vs map) and popup button label. */
+  type: AssetType
+  /** Flickr static image URL (raw) for the popup sneak-peek header, if any. */
+  imageUrl?: string
+  /** Short blurb shown in the popup sneak peek. */
+  excerpt?: string
   /** Primary tag's theme rollup, for theme filtering. */
   theme: TagTheme
 }

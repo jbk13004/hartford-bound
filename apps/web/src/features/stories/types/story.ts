@@ -73,5 +73,6 @@ export const storyToAsset = (story: Story): Asset => ({
   lat: story.lat,
   lng: story.lng,
   imageUrl: story.hero_image_url,
+  excerpt: story.excerpt,
   primaryTag: story.tags[0],
 })

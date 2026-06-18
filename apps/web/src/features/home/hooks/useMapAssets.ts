@@ -22,8 +22,8 @@ const NAVIGABLE_TYPES: ReadonlySet<AssetType> = new Set<AssetType>(['story', 'ma
 /**
  * Controller for the homepage map's plotted assets. Unions every asset
  * projection, keeps those with coordinates AND a navigable detail route, and
- * derives the markers (each colored by its primary tag's theme color) once the
- * tag vocabulary has loaded.
+ * derives the markers (each carrying its type, sneak-peek fields, and primary
+ * tag's theme) once the tag vocabulary has loaded.
  *
  * Returns all markers plus the distinct themes present, so the view can offer
  * theme filtering. Mapbox plotting + the filter UI live in the component.

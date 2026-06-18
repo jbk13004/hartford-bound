@@ -80,5 +80,6 @@ export const mapToAsset = (map: HartMap): Asset => ({
   lat: map.lat,
   lng: map.lng,
   imageUrl: map.image_url,
+  excerpt: map.description,
   primaryTag: map.tags[0],
 })

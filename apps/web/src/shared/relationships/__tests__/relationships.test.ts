@@ -88,10 +88,12 @@ describe('deriveTimeline', () => {
 })
 
 describe('deriveMapMarkers', () => {
-  it('keeps only assets with coords, colored by primary tag', () => {
+  it('keeps only assets with coords, carrying type + theme + href', () => {
     const markers = deriveMapMarkers(ASSETS, TAGS_BY_ID)
     expect(markers.map((m) => m.id)).toEqual(['a', 'c'])
-    expect(markers[0]).toMatchObject({ color: '#72B591', theme: 'migration', href: '/stories/a' })
-    expect(markers[1]).toMatchObject({ color: '#72B591', theme: 'migration' })
+    expect(markers[0]).toMatchObject({ type: 'story', theme: 'migration', href: '/stories/a' })
+    expect(markers[1]).toMatchObject({ type: 'story', theme: 'migration' })
+    // Color-coding is gone — markers no longer carry a color.
+    expect(markers[0]).not.toHaveProperty('color')
   })
 })

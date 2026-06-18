@@ -1,6 +1,9 @@
+import { useState } from 'react'
+import Lightbox from 'yet-another-react-lightbox'
+import Zoom from 'yet-another-react-lightbox/plugins/zoom'
+import 'yet-another-react-lightbox/styles.css'
 import {
   FLICKR_SIZES,
-  flickrPage,
   flickrSrc,
   parseFlickrUrl,
   type FlickrSize,
@@ -14,17 +17,18 @@ export interface FlickrImageProps {
   alt: string
   className?: string
   /**
-   * Wrap the image in an attribution link to the Flickr photo page. Defaults to
+   * Open a full-screen, in-page zoom/pan lightbox on click. Defaults to
    * `true`. Set `false` when the image fills a `<button>` (e.g. a clickable
-   * thumbnail), where the anchor would otherwise swallow the button's click.
+   * thumbnail), where the wrapper would otherwise swallow the button's click.
    */
   linkToSource?: boolean
 }
 
 /**
  * Renders a Flickr-hosted image from a single pasted static URL, emitting a
- * `srcset`/`sizes` for the requested size and wrapping it in an attribution
- * link to the Flickr photo page.
+ * `srcset`/`sizes` for the requested size. By default a click opens the image
+ * full-screen in an in-page lightbox (wheel / pinch / double-click zoom +
+ * click-drag pan) rather than navigating away to Flickr.
  *
  * A blank or unparseable `url` renders a neutral placeholder box — never a
  * broken `<img>` and never a fake headshot.
@@ -36,10 +40,11 @@ export function FlickrImage({
   className,
   linkToSource = true,
 }: FlickrImageProps) {
+  const [open, setOpen] = useState(false)
   const parsed = parseFlickrUrl(url)
 
   if (!parsed) {
-    // Neutral placeholder box: no <img>, no attribution link.
+    // Neutral placeholder box: no <img>, no lightbox.
     return (
       <div
         role="img"
@@ -68,8 +73,23 @@ export function FlickrImage({
   if (!linkToSource) return img
 
   return (
-    <a href={flickrPage(parsed)} target="_blank" rel="noreferrer">
-      {img}
-    </a>
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="block w-full cursor-zoom-in appearance-none border-0 bg-transparent p-0"
+      >
+        {img}
+      </button>
+      <Lightbox
+        open={open}
+        close={() => setOpen(false)}
+        plugins={[Zoom]}
+        slides={[{ src: flickrSrc(parsed, 'k'), alt }]}
+        carousel={{ finite: true }}
+        render={{ buttonPrev: () => null, buttonNext: () => null }}
+        zoom={{ maxZoomPixelRatio: 3 }}
+      />
+    </>
   )
 }

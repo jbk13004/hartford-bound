@@ -47,8 +47,3 @@ export function parseFlickrUrl(url: string): ParsedFlickr | null {
 export function flickrSrc(parsed: ParsedFlickr, size: FlickrSize): string {
   return `https://live.staticflickr.com/${parsed.server}/${parsed.photoId}_${parsed.secret}_${size}.jpg`
 }
-
-/** Attribution link to the photo's Flickr page. */
-export function flickrPage(parsed: ParsedFlickr): string {
-  return `https://www.flickr.com/photos//${parsed.photoId}`
-}

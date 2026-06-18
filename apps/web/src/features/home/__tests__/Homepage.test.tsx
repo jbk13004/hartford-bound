@@ -26,6 +26,23 @@ class FakeMarker {
   }
 }
 
+// The hook references mapboxgl.Popup inside the marker click handler; stub it so
+// the mocked module shape is complete (the count assertions don't exercise it).
+class FakePopup {
+  setLngLat() {
+    return this
+  }
+  setDOMContent() {
+    return this
+  }
+  addTo() {
+    return this
+  }
+  remove() {
+    return this
+  }
+}
+
 vi.mock('mapbox-gl', () => {
   class FakeMap {
     remove() {}
@@ -37,7 +54,9 @@ vi.mock('mapbox-gl', () => {
     doubleClickZoom = { enable() {} }
     touchZoomRotate = { enable() {} }
   }
-  return { default: { accessToken: '', Map: FakeMap, Marker: FakeMarker } }
+  return {
+    default: { accessToken: '', Map: FakeMap, Marker: FakeMarker, Popup: FakePopup },
+  }
 })
 
 // Imported after the mock so the hook picks up the stub.

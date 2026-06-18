@@ -9,7 +9,6 @@
  * and fixture-tested independently of any one feature's data.
  */
 import type { TagsById } from '@/features/tags'
-import { FALLBACK_TAG_COLOR } from '@/features/tags'
 import type {
   Asset,
   MapMarker,
@@ -102,8 +101,8 @@ export function deriveTimeline(
 
 /**
  * The homepage map markers: every asset with both `lat` and `lng`, carrying its
- * primary tag's color + theme (falling back to {@link FALLBACK_TAG_COLOR} and an
- * empty theme when untagged or the tag is unknown).
+ * `type` (icon), sneak-peek `imageUrl`/`excerpt`, and primary tag's `theme` (an
+ * empty theme when untagged or the tag is unknown) for theme filtering.
  */
 export function deriveMapMarkers(
   assets: readonly Asset[],
@@ -122,7 +121,9 @@ export function deriveMapMarkers(
         href: a.href,
         lat: a.lat,
         lng: a.lng,
-        color: tag?.color ?? FALLBACK_TAG_COLOR,
+        type: a.type,
+        imageUrl: a.imageUrl,
+        excerpt: a.excerpt,
         theme: tag?.theme ?? '',
       }
     })
