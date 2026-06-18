@@ -4,11 +4,11 @@ import { StoriesList, StoryDetail } from './features/stories'
 import { TimelineView } from './features/timeline'
 import { ArchiveList } from './features/archive'
 import { MapsList, MapAtlas, MapDetail } from './features/maps'
+import { ExhibitsView } from './features/exhibits'
 
 // Pages not yet migrated into src/features/* (Step 5).
 import Homepage from './pages/Homepage'
 import About from './pages/About'
-import Exhibits from './pages/Exhibits'
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
         <Route path="stories/:storyId" element={<StoryDetail />} />
         <Route path="timeline" element={<TimelineView />} />
         <Route path="archive" element={<ArchiveList />} />
-        <Route path="exhibits" element={<Exhibits />} />
+        <Route path="exhibits" element={<ExhibitsView />} />
         <Route path="about" element={<About />} />
         <Route path="*" element={<NotFound />} />
       </Route>

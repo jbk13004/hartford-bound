@@ -4,6 +4,7 @@ import { storiesApi } from '@/features/stories'
 import { timelineApi } from '@/features/timeline'
 import { archiveApi } from '@/features/archive'
 import { mapsApi } from '@/features/maps'
+import { exhibitsApi } from '@/features/exhibits'
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     [timelineApi.reducerPath]: timelineApi.reducer,
     [archiveApi.reducerPath]: archiveApi.reducer,
     [mapsApi.reducerPath]: mapsApi.reducer,
+    [exhibitsApi.reducerPath]: exhibitsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -18,6 +20,7 @@ export const store = configureStore({
       timelineApi.middleware,
       archiveApi.middleware,
       mapsApi.middleware,
+      exhibitsApi.middleware,
     ),
 })
 

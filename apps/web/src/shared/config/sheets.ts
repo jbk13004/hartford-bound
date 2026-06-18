@@ -16,4 +16,5 @@ export const SHEET_URLS = {
   maps: import.meta.env.VITE_SHEETS_MAPS_URL ?? seed('maps'),
   // The atlas grid is procedural placeholder data; seed-only (no live-sheet override).
   atlas: seed('atlas'),
+  exhibits: import.meta.env.VITE_SHEETS_EXHIBITS_URL ?? seed('exhibits'),
 } as const
