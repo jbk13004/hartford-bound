@@ -1,4 +1,10 @@
-import { parseFlickrUrl, type FlickrSize } from '@/shared/lib/flickr'
+import {
+  FLICKR_SIZES,
+  flickrPage,
+  flickrSrc,
+  parseFlickrUrl,
+  type FlickrSize,
+} from '@/shared/lib/flickr'
 
 export interface FlickrImageProps {
   /** The pasted Flickr static image URL. Blank/unparseable → empty state. */
@@ -32,8 +38,20 @@ export function FlickrImage({ url, size, alt, className }: FlickrImageProps) {
     )
   }
 
-  // IMPLEMENTOR: build src + srcset + sizes via flickrSrc(parsed, ...) and wrap
-  // the <img> in an attribution <a href={flickrPage(parsed)}>.
-  void size
-  return null
+  const srcSet = (Object.keys(FLICKR_SIZES) as FlickrSize[])
+    .map((s) => `${flickrSrc(parsed, s)} ${FLICKR_SIZES[s]}w`)
+    .join(', ')
+  const sizes = `${FLICKR_SIZES[size]}px`
+
+  return (
+    <a href={flickrPage(parsed)} target="_blank" rel="noreferrer">
+      <img
+        src={flickrSrc(parsed, size)}
+        srcSet={srcSet}
+        sizes={sizes}
+        alt={alt}
+        className={className}
+      />
+    </a>
+  )
 }
