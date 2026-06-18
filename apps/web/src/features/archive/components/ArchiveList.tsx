@@ -1,12 +1,17 @@
 import { useState } from 'react'
+import { FlickrImage } from '@/shared/components/FlickrImage'
+import { DriveDownload } from '@/shared/components/DriveDownload'
 import { useArchive } from '../hooks/useArchive'
 
 export function ArchiveList() {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('all')
-  const { items, categories, isLoading, isError } = useArchive({
-    query: searchQuery,
-    category: selectedCategory,
+  // Ephemeral UI state: the three active filters.
+  const [category, setCategory] = useState('all')
+  const [tag, setTag] = useState('all')
+  const [year, setYear] = useState('all')
+  const { items, categories, tags, years, isLoading, isError } = useArchive({
+    category,
+    tag,
+    year,
   })
 
   return (
@@ -21,35 +26,56 @@ export function ArchiveList() {
           </p>
         </div>
 
-        {/* Filters */}
+        {/* Filters: category + tag + year */}
         <div className="mb-8 flex flex-col md:flex-row gap-4">
-          <div className="relative flex-1 max-w-md">
-            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-              search
-            </span>
-            <input
-              type="text"
-              placeholder="Search archive..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky focus:border-transparent"
-            />
-          </div>
-
           <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
+            {categories.map((c) => (
               <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
+                key={c}
+                onClick={() => setCategory(c)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors capitalize ${
-                  selectedCategory === category
+                  category === c
                     ? 'bg-sky text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                {category}
+                {c}
               </button>
             ))}
+          </div>
+
+          <div className="flex gap-3 md:ml-auto">
+            <label className="sr-only" htmlFor="archive-tag">
+              Filter by tag
+            </label>
+            <select
+              id="archive-tag"
+              value={tag}
+              onChange={(e) => setTag(e.target.value)}
+              className="px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white"
+            >
+              {tags.map((t) => (
+                <option key={t} value={t}>
+                  {t === 'all' ? 'All tags' : t}
+                </option>
+              ))}
+            </select>
+
+            <label className="sr-only" htmlFor="archive-year">
+              Filter by year
+            </label>
+            <select
+              id="archive-year"
+              value={year}
+              onChange={(e) => setYear(e.target.value)}
+              className="px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white"
+            >
+              {years.map((y) => (
+                <option key={y} value={y}>
+                  {y === 'all' ? 'All years' : y}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
@@ -72,27 +98,33 @@ export function ArchiveList() {
           <>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {items.map((item) => (
-                <button
+                <div
                   key={item.id}
-                  className="group text-left bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+                  className="group bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
                 >
                   <div className="aspect-square bg-gray-100 overflow-hidden">
-                    <img
-                      src={item.thumbnail}
+                    <FlickrImage
+                      url={item.image_url}
+                      size="c"
                       alt={item.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                   <div className="p-3">
-                    <h3 className="font-medium text-sm mb-1 group-hover:text-sky transition-colors line-clamp-1">
-                      {item.title}
-                    </h3>
+                    <h3 className="font-medium text-sm mb-1 line-clamp-1">{item.title}</h3>
                     <div className="flex items-center justify-between text-xs text-gray-500">
                       <span className="capitalize">{item.category}</span>
-                      <span>{item.date}</span>
+                      <span>
+                        {item.dates_label ||
+                          (item.year_start !== undefined ? item.year_start : '')}
+                      </span>
+                    </div>
+                    {/* Download affordance: renders only when download_url is set. */}
+                    <div className="mt-2">
+                      <DriveDownload url={item.download_url} />
                     </div>
                   </div>
-                </button>
+                </div>
               ))}
             </div>
 
