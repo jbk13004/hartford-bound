@@ -7,7 +7,6 @@ import { globalIgnores } from 'eslint/config'
 
 export default tseslint.config([
   globalIgnores(['dist']),
-  // TypeScript / TSX
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -25,27 +24,6 @@ export default tseslint.config([
         'error',
         { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^_' },
       ],
-    },
-  },
-  // Legacy JS / JSX — transitional, removed once the .ts/.tsx migration completes (Step 3).
-  {
-    files: ['**/*.{js,jsx}'],
-    extends: [
-      js.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-      parserOptions: {
-        ecmaVersion: 'latest',
-        ecmaFeatures: { jsx: true },
-        sourceType: 'module',
-      },
-    },
-    rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
 ])

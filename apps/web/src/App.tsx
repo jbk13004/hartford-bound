@@ -5,10 +5,8 @@ import { TimelineView } from './features/timeline'
 import { ArchiveList } from './features/archive'
 import { MapsList, MapAtlas, MapDetail } from './features/maps'
 import { ExhibitsView } from './features/exhibits'
-
-// Pages not yet migrated into src/features/* (Step 5).
-import Homepage from './pages/Homepage'
-import About from './pages/About'
+import { Homepage } from './features/home'
+import { About } from './features/about'
 
 function App() {
   return (
