@@ -45,7 +45,7 @@ export function Homepage() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          opacity: 0.2,
+          opacity: 0.1,
         }}
       />
 
