@@ -2,11 +2,11 @@ import { Routes, Route } from 'react-router-dom'
 import { Layout, NotFound } from './shared/components'
 import { StoriesList, StoryDetail } from './features/stories'
 import { TimelineView } from './features/timeline'
+import { ArchiveList } from './features/archive'
 
 // Pages not yet migrated into src/features/* (Step 5).
 import Homepage from './pages/Homepage'
 import Maps from './pages/Maps'
-import Archive from './pages/Archive'
 import About from './pages/About'
 import Exhibits from './pages/Exhibits'
 import MapDetail from './pages/MapDetail'
@@ -24,7 +24,7 @@ function App() {
         <Route path="stories" element={<StoriesList />} />
         <Route path="stories/:storyId" element={<StoryDetail />} />
         <Route path="timeline" element={<TimelineView />} />
-        <Route path="archive" element={<Archive />} />
+        <Route path="archive" element={<ArchiveList />} />
         <Route path="exhibits" element={<Exhibits />} />
         <Route path="about" element={<About />} />
         <Route path="*" element={<NotFound />} />
