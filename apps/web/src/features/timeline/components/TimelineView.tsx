@@ -5,19 +5,31 @@ import {
   VerticalTimelineElement,
 } from 'react-vertical-timeline-component'
 import 'react-vertical-timeline-component/style.min.css'
-import { useTimeline } from '../hooks/useTimeline'
-import type { TimelineEventType } from '../types/timelineEvent'
+import { useDerivedTimeline, type TimelineTypeFilter } from '../hooks/useDerivedTimeline'
 
-const typeOptions: { value: TimelineEventType | 'all'; label: string }[] = [
+const typeOptions: { value: TimelineTypeFilter; label: string }[] = [
   { value: 'all', label: 'All' },
   { value: 'story', label: 'Stories' },
   { value: 'map', label: 'Maps' },
+  { value: 'exhibit', label: 'Exhibits' },
+  { value: 'archive', label: 'Archive' },
+  { value: 'event', label: 'Events' },
 ]
 
+// Per asset type: dot color and the "View …" verb. Context events (no type)
+// fall back to the neutral entry; they carry no link.
+const TYPE_META: Record<string, { color: string; chip: string; verb: string }> = {
+  story: { color: '#72B591', chip: 'bg-mint/10 text-mint', verb: 'Story' },
+  map: { color: '#509EC8', chip: 'bg-sky/10 text-sky', verb: 'Map' },
+  exhibit: { color: '#C26B5A', chip: 'bg-[#C26B5A]/10 text-[#C26B5A]', verb: 'Exhibit' },
+  archive: { color: '#D1D35E', chip: 'bg-primary/10 text-primary', verb: 'Item' },
+  event: { color: '#94a3b8', chip: 'bg-slate-100 text-slate-500', verb: '' },
+}
+
 export function TimelineView() {
-  const [typeFilter, setTypeFilter] = useState<TimelineEventType | 'all'>('all')
+  const [typeFilter, setTypeFilter] = useState<TimelineTypeFilter>('all')
   const [centuryFilter, setCenturyFilter] = useState<number | 'all'>('all')
-  const { events, centuries, isLoading, isError } = useTimeline({
+  const { entries, centuries, isLoading, isError } = useDerivedTimeline({
     type: typeFilter,
     century: centuryFilter,
   })
@@ -46,7 +58,7 @@ export function TimelineView() {
               <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
                 Show:
               </span>
-              <div className="flex bg-slate-100 p-1 rounded-lg">
+              <div className="flex flex-wrap bg-slate-100 p-1 rounded-lg">
                 {typeOptions.map((opt) => (
                   <button
                     key={opt.value}
@@ -97,7 +109,7 @@ export function TimelineView() {
 
             {/* Count */}
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
-              {events.length} event{events.length !== 1 ? 's' : ''}
+              {entries.length} event{entries.length !== 1 ? 's' : ''}
             </span>
           </div>
         </div>
@@ -117,7 +129,7 @@ export function TimelineView() {
                 Couldn&apos;t load the timeline. Please try again later.
               </p>
             </div>
-          ) : events.length === 0 ? (
+          ) : entries.length === 0 ? (
             <div className="text-center py-20">
               <span className="material-symbols-outlined text-6xl text-slate-300 mb-4 block">
                 event_busy
@@ -137,16 +149,14 @@ export function TimelineView() {
             </div>
           ) : (
             <VerticalTimeline lineColor="#e2e8f0">
-              {events.map((event) => {
-                const isMap = event.type === 'map'
-                const iconBg = isMap ? '#509EC8' : '#72B591'
-                const linkPath = isMap ? `/maps/${event.linkId}` : `/stories/${event.linkId}`
-                const tagColor = isMap ? 'bg-sky/10 text-sky' : 'bg-mint/10 text-mint'
+              {entries.map((entry) => {
+                const kind = entry.type ?? 'event'
+                const meta = TYPE_META[kind] ?? TYPE_META.event
 
                 return (
                   <VerticalTimelineElement
-                    key={event.id}
-                    date={String(event.year)}
+                    key={`${kind}-${entry.id}`}
+                    date={String(entry.year)}
                     dateClassName="timeline-date"
                     contentStyle={{
                       background: '#ffffff',
@@ -157,36 +167,35 @@ export function TimelineView() {
                     }}
                     contentArrowStyle={{}}
                     iconStyle={{
-                      background: iconBg,
+                      background: meta.color,
                       width: '16px',
                       height: '16px',
                       marginLeft: '-8px',
-                      boxShadow: `0 0 0 3px #fff, 0 0 0 4px ${iconBg}50`,
+                      boxShadow: `0 0 0 3px #fff, 0 0 0 4px ${meta.color}50`,
                     }}
                     iconClassName="timeline-dot"
                     icon={null}
                   >
                     <div className="flex items-center gap-2 mb-3">
                       <span
-                        className={`text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full ${tagColor}`}
+                        className={`text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full ${meta.chip}`}
                       >
-                        {event.type}
+                        {kind}
                       </span>
-                      <span className="text-sm font-bold text-primary">{event.year}</span>
+                      <span className="text-sm font-bold text-primary">{entry.year}</span>
                     </div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-2">{event.title}</h3>
-                    <p className="text-sm text-slate-600 leading-relaxed mb-4">
-                      {event.description}
-                    </p>
-                    <Link
-                      to={linkPath}
-                      className="inline-flex items-center text-[10px] font-bold uppercase tracking-[0.15em] text-sky hover:text-mint transition-colors"
-                    >
-                      View {isMap ? 'Map' : 'Story'}
-                      <span className="material-symbols-outlined ml-1.5 text-sm">
-                        arrow_forward
-                      </span>
-                    </Link>
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">{entry.title}</h3>
+                    {entry.href && (
+                      <Link
+                        to={entry.href}
+                        className="inline-flex items-center text-[10px] font-bold uppercase tracking-[0.15em] text-sky hover:text-mint transition-colors"
+                      >
+                        View {meta.verb}
+                        <span className="material-symbols-outlined ml-1.5 text-sm">
+                          arrow_forward
+                        </span>
+                      </Link>
+                    )}
                   </VerticalTimelineElement>
                 )
               })}
