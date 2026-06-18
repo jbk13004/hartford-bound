@@ -7,8 +7,8 @@ import {
   type TimelineEventRow,
 } from '../types/timelineEvent'
 
-export const timelineApi = createApi({
-  reducerPath: 'timelineApi',
+export const timelineEventsApi = createApi({
+  reducerPath: 'timelineEventsApi',
   baseQuery: csvBaseQuery,
   keepUnusedDataFor: 3600,
   refetchOnFocus: false,
@@ -16,11 +16,11 @@ export const timelineApi = createApi({
   refetchOnMountOrArgChange: false,
   endpoints: (build) => ({
     getTimelineEvents: build.query<TimelineEvent[], void>({
-      query: () => SHEET_URLS.timeline,
+      query: () => SHEET_URLS.timelineEvents,
       transformResponse: (rows: CsvRow[]) =>
         (rows as unknown as TimelineEventRow[]).map(toTimelineEvent),
     }),
   }),
 })
 
-export const { useGetTimelineEventsQuery } = timelineApi
+export const { useGetTimelineEventsQuery } = timelineEventsApi

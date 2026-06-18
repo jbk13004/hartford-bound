@@ -1,0 +1,17 @@
+story_id,sort_order,type,text,image_url,caption
+addie-brown,10,heading,A Life in Constant Motion,,
+addie-brown,20,text,"Addie Brown's story is one of resilience and constant movement. Born in the mid-19th century, her life in Hartford, Connecticut, provides a window into the lived experiences of African American women who navigated a landscape defined by both opportunity and severe structural limitations.",,
+addie-brown,30,photo,,https://live.staticflickr.com/65535/53778710552_01f2058482_b.jpg,A page from Addie Brown's correspondence
+addie-brown,40,text,"Through her extensive correspondence with Rebecca Primus, Addie documented the challenges of domestic labor. She moved frequently between households, seeking better wages and treatment, illustrating the peripatetic nature of survival for Black working-class women during this era.",,
+addie-brown,50,quote,"I would give anything in this world if I was capable of teaching.",,
+james-mars,10,heading,From Bondage to Advocacy,,
+james-mars,20,text,"Born into slavery in Connecticut, James Mars secured his own freedom and became a leading voice for civil rights and suffrage in the state. His published autobiography remains a cornerstone of African American history in New England.",,
+james-mars,30,text,"Mars organized within Hartford's churches and lobbied the legislature, helping lay the groundwork for the long struggle over Black voting rights that continued well after his death.",,
+catharine-freebody,10,heading,An Estate for the Vulnerable,,
+catharine-freebody,20,text,"Catharine Freebody directed her wealth toward Hartford's most vulnerable residents, endowing institutions that anchored neighborhoods through periods of rapid change.",,
+brown-correspondence,10,heading,Letters Across a Network,,
+brown-correspondence,20,text,"The correspondence between Hartford and New York reveals a dense web of kinship, labor, and care that connected African American communities across the region.",,
+brown-correspondence,30,photo,,https://live.staticflickr.com/65535/53778710552_01f2058482_b.jpg,
+mars-legacy,10,text,"Mars's advocacy echoed through decades of New England legislative history, shaping debates over enfranchisement long after his lifetime.",,
+freebody-institutions,10,heading,Mapping Philanthropy,,
+freebody-institutions,20,text,"Plotting Freebody's institutions against the city's growth shows how private giving shaped where stability took root in early Hartford.",,

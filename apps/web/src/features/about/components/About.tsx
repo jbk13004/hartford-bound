@@ -32,13 +32,6 @@ export function About() {
             {/* Co-PI 1 */}
             <div className="bg-white p-8 rounded-xl border border-mint/20 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex flex-col items-center md:items-start md:flex-row md:space-x-6">
-                <div className="w-32 h-32 flex-shrink-0 mb-6 md:mb-0">
-                  <img
-                    alt="Headshot of Co-Principal Investigator 1"
-                    className="w-full h-full object-cover rounded-full ring-4 ring-sky/10"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuALhebdShknIat6aeR7uQbYq8O9a2pK3iaWNOmOQAer93yCv6M3QXtzVV8e1qwAuAkc6dos5ybBstKW4FmiYcGPaNNy6X2SN_nsfcEHndRVqoqnciizPu4Lxec4yZmjavYf-GQsM4PrUKkc_FbhZVMSUusF1Me6mzUjy8DGOoE9zTB2pw8rEj3lb9555mFLERRhivI7RWTSeKiJOBzkjKP2adQvC_zke_Z2ggyPwczijIViMoAg4zptlm_sYXGjKdqPq1GbMKWDmENI"
-                  />
-                </div>
                 <div>
                   <h3 className="text-2xl font-bold text-sky mb-1">Dr. Elena Rodriguez</h3>
                   <p className="text-mint font-medium mb-4">Co-Principal Investigator</p>
@@ -54,13 +47,6 @@ export function About() {
             {/* Co-PI 2 */}
             <div className="bg-white p-8 rounded-xl border border-mint/20 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex flex-col items-center md:items-start md:flex-row md:space-x-6">
-                <div className="w-32 h-32 flex-shrink-0 mb-6 md:mb-0">
-                  <img
-                    alt="Headshot of Co-Principal Investigator 2"
-                    className="w-full h-full object-cover rounded-full ring-4 ring-sky/10"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMJ2hdpfiYgfWoEyfz55o3pCR_Q7dR8Syai28uIpLYTsllCzFH4OrR2Faw4RMjso_SnT2QKU6KGPkKdmlN73ijVqxhXaaBE17Teh1BC5eJHOFdEEoRq8n4wuYNiUEWuUT59Gk4KMymRaCH3Y6CAqQYThufl2N36W7U7C69LyXCBSvhcNqc3wI_YORjrstinAsM45MbTq2cMePWzI6GbDv2XsaDhL3MX2u5IeZk1djKJCNJxeCTFChX_xcvO-ZyobxZVSMPYipRWYnm"
-                  />
-                </div>
                 <div>
                   <h3 className="text-2xl font-bold text-sky mb-1">Dr. Marcus Thorne</h3>
                   <p className="text-mint font-medium mb-4">Co-Principal Investigator</p>

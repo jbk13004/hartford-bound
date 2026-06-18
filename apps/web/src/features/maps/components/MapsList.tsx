@@ -1,53 +1,11 @@
 import { Link } from 'react-router-dom'
-import { useMapCollections } from '../hooks/useMapCollections'
-import type { MapColorScheme } from '../types/map'
-
-interface ColorConfig {
-  cardClass: string
-  bgTint: string
-  gradientFrom: string
-  gradientVia: string
-  titleColor: string
-  subtitleColor: string
-  linkColor: string
-  linkHover: string
-}
-
-const colorConfig: Record<MapColorScheme, ColorConfig> = {
-  green: {
-    cardClass: 'story-card-green',
-    bgTint: 'bg-mint/20',
-    gradientFrom: 'from-mint/90',
-    gradientVia: 'via-mint/20',
-    titleColor: 'text-white',
-    subtitleColor: 'text-white/80',
-    linkColor: 'text-mint',
-    linkHover: 'group-hover:text-slate-900',
-  },
-  blue: {
-    cardClass: 'story-card-blue',
-    bgTint: 'bg-sky/20',
-    gradientFrom: 'from-sky/90',
-    gradientVia: 'via-sky/20',
-    titleColor: 'text-white',
-    subtitleColor: 'text-white/80',
-    linkColor: 'text-sky',
-    linkHover: 'group-hover:text-slate-900',
-  },
-  yellow: {
-    cardClass: 'story-card-yellow',
-    bgTint: 'bg-primary/20',
-    gradientFrom: 'from-primary/90',
-    gradientVia: 'via-primary/20',
-    titleColor: 'text-slate-900',
-    subtitleColor: 'text-slate-800/80',
-    linkColor: 'text-slate-900',
-    linkHover: 'group-hover:text-sky',
-  },
-}
+import { FlickrImage } from '@/shared/components/FlickrImage'
+import { usePrimaryTag } from '@/features/tags'
+import { useCollections } from '@/features/collections'
 
 export function MapsList() {
-  const { collections, isLoading, isError } = useMapCollections()
+  const { collections, isLoading, isError } = useCollections()
+  const { colorFor } = usePrimaryTag()
 
   return (
     <>
@@ -107,32 +65,28 @@ export function MapsList() {
               </div>
             ))}
 
-          {/* Map Collection Cards */}
+          {/* Collection Cards */}
           {collections.map((card) => {
-            const colors = colorConfig[card.colorScheme]
+            const accent = colorFor(card.tags)
             return (
               <article
                 key={card.id}
-                className={`group flex flex-col rounded-lg overflow-hidden border transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${colors.cardClass}`}
+                className="group flex flex-col rounded-lg overflow-hidden border border-slate-200 bg-white transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                style={{ borderTopColor: accent, borderTopWidth: 4 }}
               >
-                <div className={`relative aspect-video overflow-hidden ${colors.bgTint}`}>
-                  <img
+                <div className="relative aspect-video overflow-hidden bg-slate-100">
+                  <FlickrImage
+                    url={card.cover_image_url}
+                    size="z"
                     alt={card.title}
-                    className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90 transition-transform duration-700 group-hover:scale-105"
-                    src={card.image}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-t ${colors.gradientFrom} ${colors.gradientVia} to-transparent opacity-80`}
-                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                   <div className="absolute bottom-3 left-4 right-4">
-                    <h2
-                      className={`text-xl font-display font-extrabold uppercase tracking-tight ${colors.titleColor} drop-shadow-md`}
-                    >
+                    <h2 className="text-xl font-display font-extrabold uppercase tracking-tight text-white drop-shadow-md">
                       {card.title}
                     </h2>
-                    <span
-                      className={`text-[8px] font-bold ${colors.subtitleColor} tracking-[0.2em] uppercase`}
-                    >
+                    <span className="text-[8px] font-bold text-white/80 tracking-[0.2em] uppercase">
                       {card.subtitle}
                     </span>
                   </div>
@@ -153,7 +107,8 @@ export function MapsList() {
                   </div>
                   <Link
                     to={`/maps/atlas/${card.id}`}
-                    className={`inline-flex items-center text-[9px] font-black uppercase tracking-[0.15em] ${colors.linkColor} ${colors.linkHover} transition-colors`}
+                    className="inline-flex items-center text-[9px] font-black uppercase tracking-[0.15em] transition-colors"
+                    style={{ color: accent }}
                   >
                     Launch Collection
                     <span className="material-symbols-outlined ml-2 text-xs font-bold group-hover:translate-x-1 transition-transform">

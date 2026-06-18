@@ -1,2 +1,5 @@
 # Claude Code local files (CLAUDE.md is committed under apps/web/)
 .claude/
+
+# Isolated-builder-team orchestrator workspace (untracked plan/registry)
+.agent-workspace/

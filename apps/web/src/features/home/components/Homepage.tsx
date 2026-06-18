@@ -1,6 +1,15 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import type { TagTheme } from '@/features/tags'
 import { useHartfordMap } from '../hooks/useHartfordMap'
+import { useMapAssets } from '../hooks/useMapAssets'
+
+// Display labels for the on-theme filter pills (keyed by tag theme rollup).
+const THEME_LABELS: Record<Exclude<TagTheme, ''>, string> = {
+  race: 'Race',
+  migration: 'Migration',
+  mobility: 'Mobility',
+}
 
 // TODO edit logo, clip in original people on new background, maybe blur background a little bit?
 // TODO add super transparent version of the 1850 map to the white background, make it static while the features scroll on top of it
@@ -10,7 +19,15 @@ import { useHartfordMap } from '../hooks/useHartfordMap'
 // TODO make header styles and sizes consistent?
 
 export function Homepage() {
-  const { containerRef, enableInteraction } = useHartfordMap()
+  const { markers, themes } = useMapAssets()
+  const [activeTheme, setActiveTheme] = useState<TagTheme | 'all'>('all')
+
+  const filteredMarkers = useMemo(
+    () => (activeTheme === 'all' ? markers : markers.filter((m) => m.theme === activeTheme)),
+    [markers, activeTheme],
+  )
+
+  const { containerRef, enableInteraction } = useHartfordMap(filteredMarkers)
   const [showSplash, setShowSplash] = useState(true)
 
   const handleExplore = () => {
@@ -138,6 +155,40 @@ export function Homepage() {
                 lens of Hartford, one of America&apos;s wealthiest cities at the end of the Civil War.
               </p>
             </div>
+
+            {/* Theme Filter */}
+            {themes.length > 0 && (
+              <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-black/60 mr-1">
+                  Filter by theme:
+                </span>
+                <button
+                  onClick={() => setActiveTheme('all')}
+                  aria-pressed={activeTheme === 'all'}
+                  className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
+                    activeTheme === 'all'
+                      ? 'bg-[#d1d35e] text-black shadow-md'
+                      : 'bg-white/80 text-black/70 hover:bg-white'
+                  }`}
+                >
+                  All
+                </button>
+                {themes.map((theme) => (
+                  <button
+                    key={theme}
+                    onClick={() => setActiveTheme(theme)}
+                    aria-pressed={activeTheme === theme}
+                    className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
+                      activeTheme === theme
+                        ? 'bg-[#d1d35e] text-black shadow-md'
+                        : 'bg-white/80 text-black/70 hover:bg-white'
+                    }`}
+                  >
+                    {THEME_LABELS[theme]}
+                  </button>
+                ))}
+              </div>
+            )}
 
             {/* Map Container */}
             <div className="relative rounded-[3rem] overflow-hidden shadow-2xl border-4 border-[#000000] h-[700px]">

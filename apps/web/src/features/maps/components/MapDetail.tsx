@@ -1,4 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
+import { FlickrImage } from '@/shared/components/FlickrImage'
+import { decadeOf } from '@/shared/relationships'
+import { formatDates } from '@/shared/lib/dates'
 import { useMapDetail } from '../hooks/useMapDetail'
 
 export function MapDetail() {
@@ -31,6 +34,8 @@ export function MapDetail() {
     )
   }
 
+  const decade = decadeOf(map.year_start)
+
   return (
     <div className="max-w-[1440px] mx-auto px-6 py-12">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
@@ -38,38 +43,34 @@ export function MapDetail() {
         <div className="lg:col-span-9 space-y-8">
           <header>
             <h1 className="text-3xl md:text-4xl font-bold text-sky mb-2">{map.title}</h1>
+            {map.subtitle && <p className="text-slate-500 mb-2">{map.subtitle}</p>}
             <div className="flex items-center gap-3">
-              <span className="text-xs font-black text-sky uppercase tracking-tighter">
-                {map.tag}
-              </span>
+              {map.tags[0] && (
+                <span className="text-xs font-black text-sky uppercase tracking-tighter">
+                  {map.tags[0]}
+                </span>
+              )}
+              {decade !== undefined && (
+                <span className="text-xs font-black text-slate-400 uppercase tracking-tighter">
+                  {decade}s
+                </span>
+              )}
               <span className="text-xs font-black text-slate-400 uppercase tracking-tighter">
-                {map.decade}
+                {formatDates(map.dates_label, map.year_start, map.year_end)}
               </span>
             </div>
             <div className="w-24 h-1.5 bg-mint rounded-full mt-3" />
           </header>
 
-          {/* Map Image */}
+          {/* Map Scan */}
           <div className="relative bg-white rounded-xl shadow-xl border border-slate-200 overflow-hidden">
-            <div className="aspect-[16/9] relative">
-              <img
+            <div className="aspect-[16/9] relative bg-slate-100">
+              <FlickrImage
+                url={map.image_url}
+                size="b"
                 alt={map.title}
                 className="w-full h-full object-cover"
-                src={map.image}
               />
-              <div className="absolute top-6 left-6 flex flex-col space-y-3">
-                <button className="w-11 h-11 bg-white shadow-lg rounded flex items-center justify-center hover:bg-slate-50 transition-colors border border-slate-100">
-                  <span className="material-symbols-outlined text-slate-600">add</span>
-                </button>
-                <button className="w-11 h-11 bg-white shadow-lg rounded flex items-center justify-center hover:bg-slate-50 transition-colors border border-slate-100">
-                  <span className="material-symbols-outlined text-slate-600">remove</span>
-                </button>
-              </div>
-              <div className="absolute bottom-6 right-6">
-                <button className="w-11 h-11 bg-white shadow-lg rounded flex items-center justify-center hover:bg-slate-50 transition-colors border border-slate-100">
-                  <span className="material-symbols-outlined text-slate-600">fullscreen</span>
-                </button>
-              </div>
             </div>
           </div>
 
@@ -77,9 +78,8 @@ export function MapDetail() {
           <article className="bg-white p-8 md:p-10 rounded-xl border border-slate-200">
             <h2 className="text-xl font-bold text-slate-900 mb-4">Historical Context</h2>
             <p className="text-slate-600 leading-relaxed text-lg">
-              This historical map layer is part of the Hartford Bound cartographic collection,
-              documenting how race, policy, and community shaped the city&apos;s landscape over
-              time. Explore related layers to trace how these patterns evolved across the decades.
+              {map.description ||
+                'This historical map scan is part of the Hartford Bound cartographic collection.'}
             </p>
           </article>
         </div>
@@ -94,21 +94,28 @@ export function MapDetail() {
             <div className="space-y-8">
               {related.map((relMap) => (
                 <Link key={relMap.id} to={`/maps/${relMap.id}`} className="group cursor-pointer block">
-                  <div className="aspect-[4/3] rounded overflow-hidden mb-3 border border-slate-100">
-                    <img
+                  <div className="aspect-[4/3] rounded overflow-hidden mb-3 border border-slate-100 bg-slate-100">
+                    <FlickrImage
+                      url={relMap.image_url}
+                      size="w"
                       alt={relMap.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      src={relMap.image}
                     />
                   </div>
                   <h3 className="text-xs font-bold uppercase tracking-wide text-slate-900 group-hover:text-sky transition-colors">
                     {relMap.title}
                   </h3>
                   <p className="text-[11px] leading-relaxed text-slate-500 mt-1">
-                    {relMap.tag} · {relMap.decade}
+                    {relMap.tags[0] ?? ''}
+                    {decadeOf(relMap.year_start) !== undefined
+                      ? ` · ${decadeOf(relMap.year_start)}s`
+                      : ''}
                   </p>
                 </Link>
               ))}
+              {related.length === 0 && (
+                <p className="text-[11px] text-slate-400">No related maps yet.</p>
+              )}
             </div>
             <Link
               to="/maps/atlas"
