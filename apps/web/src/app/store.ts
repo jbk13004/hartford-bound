@@ -6,6 +6,7 @@ import { archiveApi } from '@/features/archive'
 import { mapsApi } from '@/features/maps'
 import { collectionsApi } from '@/features/collections'
 import { exhibitsApi } from '@/features/exhibits'
+import { exhibitPanelsApi } from '@/features/exhibitPanels'
 import { tagsApi } from '@/features/tags'
 
 /** Builds a fresh store. Used for the app singleton below and for isolated test stores. */
@@ -18,6 +19,7 @@ export const makeStore = () =>
       [mapsApi.reducerPath]: mapsApi.reducer,
       [collectionsApi.reducerPath]: collectionsApi.reducer,
       [exhibitsApi.reducerPath]: exhibitsApi.reducer,
+      [exhibitPanelsApi.reducerPath]: exhibitPanelsApi.reducer,
       [tagsApi.reducerPath]: tagsApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
@@ -28,6 +30,7 @@ export const makeStore = () =>
         mapsApi.middleware,
         collectionsApi.middleware,
         exhibitsApi.middleware,
+        exhibitPanelsApi.middleware,
         tagsApi.middleware,
       ),
   })
