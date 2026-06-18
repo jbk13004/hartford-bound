@@ -10,11 +10,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
 
-    /* Transitional: allow the not-yet-renamed .js/.jsx files to coexist.
-       Removed at the end of Step 3 once everything is TypeScript. */
-    "allowJs": true,
-    "checkJs": false,
-
     "noEmit": true,
 
     /* Strict mode */
