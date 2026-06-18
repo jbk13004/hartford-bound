@@ -20,16 +20,17 @@ export interface ParsedDrive {
  * Returns `null` for a blank or unrecognized link (never throws).
  */
 export function parseDriveUrl(shareUrl: string): ParsedDrive | null {
-  // IMPLEMENTOR: extract the file id from /file/d/<id>/, ?id=<id>, open?id=<id>.
-  void shareUrl
+  const url = shareUrl.trim()
+  const fileMatch = /\/file\/d\/([^/]+)/.exec(url)
+  if (fileMatch) return { fileId: fileMatch[1] }
+  const idMatch = /[?&]id=([^&]+)/.exec(url)
+  if (idMatch) return { fileId: idMatch[1] }
   return null
 }
 
 /** Direct-download URL for a file id. */
 export function driveDownloadUrl(fileId: string): string {
-  // IMPLEMENTOR: https://drive.google.com/uc?export=download&id=<id>
-  void fileId
-  return ''
+  return `https://drive.google.com/uc?export=download&id=${fileId}`
 }
 
 /**
@@ -38,7 +39,5 @@ export function driveDownloadUrl(fileId: string): string {
  * for those, open the view page in a new tab.
  */
 export function driveViewUrl(fileId: string): string {
-  // IMPLEMENTOR: https://drive.google.com/file/d/<id>/view
-  void fileId
-  return ''
+  return `https://drive.google.com/file/d/${fileId}/view`
 }
