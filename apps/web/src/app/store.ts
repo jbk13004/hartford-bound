@@ -5,6 +5,7 @@ import { timelineApi } from '@/features/timeline'
 import { archiveApi } from '@/features/archive'
 import { mapsApi } from '@/features/maps'
 import { exhibitsApi } from '@/features/exhibits'
+import { tagsApi } from '@/features/tags'
 
 /** Builds a fresh store. Used for the app singleton below and for isolated test stores. */
 export const makeStore = () =>
@@ -15,6 +16,7 @@ export const makeStore = () =>
       [archiveApi.reducerPath]: archiveApi.reducer,
       [mapsApi.reducerPath]: mapsApi.reducer,
       [exhibitsApi.reducerPath]: exhibitsApi.reducer,
+      [tagsApi.reducerPath]: tagsApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
@@ -23,6 +25,7 @@ export const makeStore = () =>
         archiveApi.middleware,
         mapsApi.middleware,
         exhibitsApi.middleware,
+        tagsApi.middleware,
       ),
   })
 
