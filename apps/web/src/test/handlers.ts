@@ -55,6 +55,13 @@ sanborn-1880,1880 Sanborn Sheet,maps,1880,,,"community",${FLICKR},,A fire-insura
 busing-1960,School Busing,photographs,1960,,,"race",${FLICKR},https://drive.google.com/file/d/1ZyXwVuTsRqPoNmLkJiHgFeDcBa987654/view?usp=sharing,Students boarding buses.
 `
 
+// Timeline events: non-asset context beats. `hartford-founded` (1635) predates
+// every fixture asset, so the derived-timeline test can assert it sorts first.
+export const TIMELINE_EVENTS_CSV = `id,year,title,description
+hartford-founded,1635,Hartford Founded,Thomas Hooker leads a congregation to the Connecticut River.
+fair-housing-act,1968,Federal Fair Housing Act,Federal law bars housing discrimination.
+`
+
 export const handlers = [
   http.get('*/data/stories.csv', () => HttpResponse.text(STORIES_CSV)),
   http.get('*/data/story_blocks.csv', () => HttpResponse.text(STORY_BLOCKS_CSV)),
@@ -64,4 +71,5 @@ export const handlers = [
   http.get('*/data/exhibits.csv', () => HttpResponse.text(EXHIBITS_CSV)),
   http.get('*/data/exhibit_panels.csv', () => HttpResponse.text(EXHIBIT_PANELS_CSV)),
   http.get('*/data/archive.csv', () => HttpResponse.text(ARCHIVE_CSV)),
+  http.get('*/data/timeline_events.csv', () => HttpResponse.text(TIMELINE_EVENTS_CSV)),
 ]

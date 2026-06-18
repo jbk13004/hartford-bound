@@ -27,7 +27,7 @@ export function FlickrImage({ url, size, alt, className }: FlickrImageProps) {
   const parsed = parseFlickrUrl(url)
 
   if (!parsed) {
-    // IMPLEMENTOR: neutral placeholder box (no <img>, no attribution link).
+    // Neutral placeholder box: no <img>, no attribution link.
     return (
       <div
         role="img"

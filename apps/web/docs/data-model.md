@@ -286,9 +286,13 @@ CRUD to a single edit and avoids the two sheets drifting out of sync.
 - **Timeline** = every asset with a `year_start` (stories, maps, exhibits, archive) unioned
   with `timeline_events`, sorted by year. Each entry links back to its asset's detail page.
   The old `timeline.csv` with its `type`/`linkId` columns goes away.
-- **Homepage interactive map** = every asset that has `lat`/`lng` (stories + maps, plus any
-  exhibit/archive item with coordinates), plotted as a marker colored by its primary tag's
-  theme. Click a marker → the asset's detail page. Filterable by tag/theme.
+- **Homepage interactive map** = every asset that has `lat`/`lng` **and** a per-item detail
+  route, plotted as a marker colored by its primary tag's theme. Click a marker → the asset's
+  detail page. Filterable by tag/theme. In practice this is stories + maps: only those two
+  asset types have detail pages (`/stories/:id`, `/maps/:id`), so an exhibit/archive marker
+  would navigate nowhere and is kept off the map even when it carries coordinates. The
+  `useMapAssets` union still projects all four types, so adding exhibit/archive detail routes
+  later is the only change needed to plot them.
 - **Decade chips** (`#1930s`) = computed from `year_start`.
 - **Related rails** ("Related Stories/Maps") = real now: shared-tag overlap + explicit
   `map_ids`/`story_ids` links, replacing the current `.slice(0, 2)` placeholder.
@@ -311,3 +315,30 @@ New/changed pieces:
   the reverse maps (tag → assets, map → stories, etc.) and the derived timeline + map-marker
   lists. Feature hooks (`useStory`, `useMapDetail`, …) read from this instead of slicing.
 - Splitting helpers for the multi-value columns (`splitIds`, `splitTags`).
+
+---
+
+## Implementation notes (as built)
+
+The design above is the contract; these are the intentional deviations the implementation
+settled on across the build-out, so this doc stays a truthful source of truth:
+
+- **`SHEET_URLS` keys.** Live keys: `stories`, `storyBlocks`, `maps`, `collections`,
+  `exhibits`, `exhibitPanels`, `archive`, `tags`, `timelineEvents`. The old `atlas` key
+  (folded into `maps`) and the old `timeline` key (the `type`/`linkId` sheet, replaced by the
+  derived timeline) are **retired** — there is no `public/data/atlas.csv` or
+  `public/data/timeline.csv`. The `timelineEvents` key reads `public/data/timeline_events.csv`
+  (env override `VITE_SHEETS_TIMELINE_EVENTS_URL`).
+- **Map domain type is `HartMap`**, not `Map` — `Map` is a built-in. `maps/types/map.ts`
+  exports `toMap`, `mapToAsset`, `mapDecade`, and the `HartMap`/`MapRow` types.
+- **Date formatting** lives in `shared/lib/dates.ts` (`formatDates(dates_label, year_start,
+  year_end)`) — the shared `dates_label`-or-range formatter every asset card/detail uses.
+- **`decadeOf`** (in `shared/relationships`) is the single decade helper; there is **no
+  `decade` column** anywhere — decades are always derived from `year_start`. Likewise there
+  are no `variant`/`colorScheme` columns: an asset's accent color is its primary tag's color.
+- **Asset href shapes** (used by the `Asset` projections and the derived views): stories
+  `/stories/:id`, maps `/maps/:id`, exhibits `/exhibits/:id`, archive `/archive/:id`. Only the
+  first two are wired as routes today; see the homepage-map note under "Derived views".
+- **Timeline events** carry `id, year, title, description?` (the shared `TimelineEvent` /
+  `TimelineEntry` shapes in `shared/relationships`). The derived `TimelineEntry` exposes
+  `id, year, title, href?, type?` — asset entries carry `href`/`type`, context events don't.
