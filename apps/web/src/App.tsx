@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
-import Layout from './components/Layout'
+import { Layout, NotFound } from './shared/components'
 
-// Pages
+// Pages — migrated into src/features/* incrementally in Steps 4–5.
 import Homepage from './pages/Homepage'
 import Maps from './pages/Maps'
 import Stories from './pages/Stories'
@@ -12,7 +12,6 @@ import Exhibits from './pages/Exhibits'
 import StoryDetail from './pages/StoryDetail'
 import MapDetail from './pages/MapDetail'
 import MapAtlas from './pages/MapAtlas'
-import NotFound from './pages/NotFound'
 
 function App() {
   return (
