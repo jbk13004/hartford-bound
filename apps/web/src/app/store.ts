@@ -2,14 +2,20 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { storiesApi } from '@/features/stories'
 import { timelineApi } from '@/features/timeline'
+import { archiveApi } from '@/features/archive'
 
 export const store = configureStore({
   reducer: {
     [storiesApi.reducerPath]: storiesApi.reducer,
     [timelineApi.reducerPath]: timelineApi.reducer,
+    [archiveApi.reducerPath]: archiveApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(storiesApi.middleware, timelineApi.middleware),
+    getDefaultMiddleware().concat(
+      storiesApi.middleware,
+      timelineApi.middleware,
+      archiveApi.middleware,
+    ),
 })
 
 // Enables refetchOnFocus / refetchOnReconnect behaviour (opted out per-API here,
