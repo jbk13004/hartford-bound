@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run dev server (terminal)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev",
+      "cwd": "${workspaceFolder}/website/client"
+    },
+    {
+      "name": "Launch Chrome + dev server",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/website/client/src",
+      "preLaunchTask": "vite: dev server"
+    }
+  ],
+  "compounds": []
+}
