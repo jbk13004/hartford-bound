@@ -1,0 +1,21 @@
+id,year,title,description,type,linkId
+1,1635,Hartford Founded,Thomas Hooker leads a congregation from the Massachusetts Bay Colony to establish Hartford along the Connecticut River.,story,hartford-founded
+2,1662,Charter Oak Map,Early colonial survey map depicting Hartford boundaries established under the Royal Charter granted by King Charles II.,map,charter-oak
+3,1790,First Federal Census,"Hartford records its first census data, revealing the presence of free and enslaved African Americans in the city.",story,first-census
+4,1830,Talcott Street Congregational Church,"The first Black church in Hartford is established, becoming a center of abolitionist activity and community organizing.",story,talcott-street
+5,1860,Employment Clusters Map,Spatial distribution of domestic laborers in the Talcott Street neighborhood reveals patterns of racial occupational segregation.,map,employment-clusters
+6,1868,Addie Brown in Hartford,Domestic worker Addie Brown's correspondence with Rebecca Primus documents the lived experience of Black working-class women navigating Hartford's labor market.,story,addie-brown
+7,1890,Sewerage System Map,Detailed engineering survey of Hartford's sewer infrastructure reveals disparities in public investment between neighborhoods.,map,sewerage-1890
+8,1910,Ward Boundaries Map,Municipal ward map showing political district lines that would shape representation and resource allocation for decades.,map,ward-map-1910
+9,1920,Great Migration Begins,"Thousands of Black Southerners begin relocating to Hartford, drawn by industrial jobs at Colt, Pratt & Whitney, and other manufacturers.",story,great-migration
+10,1926,First Zoning Plan,Hartford's inaugural zoning ordinance codifies land-use restrictions that effectively reinforce existing patterns of racial segregation.,map,zoning-1926
+11,1936,Great Flood Inundation Map,"The Connecticut River floods devastate low-lying neighborhoods, disproportionately impacting communities of color along the riverfront.",map,flood-1936
+12,1937,HOLC Redlining Map,"The Home Owners' Loan Corporation grades Hartford neighborhoods, institutionalizing discriminatory lending practices that devastate North End communities.",map,holc-redlining
+13,1945,Post-War Housing Crisis,Returning veterans and continued migration create severe housing shortages. Restrictive covenants confine Black families to overcrowded neighborhoods.,story,housing-crisis-1945
+14,1950,Highway Construction Map,"Interstate highway planning routes I-84 and I-91 through the heart of established Black neighborhoods, displacing thousands of residents.",map,highways-1950
+15,1954,James Mars Legacy,Renewed scholarly attention to James Mars's autobiography highlights Hartford's complex relationship with slavery and emancipation.,story,james-mars
+16,1960,Urban Renewal Begins,"Federal urban renewal programs demolish blocks of housing in the North End, displacing thousands under the promise of modernization.",story,urban-renewal
+17,1962,Constitution Plaza Opens,"Hartford's flagship urban renewal project replaces a historic neighborhood with a modernist civic center, erasing decades of community history.",story,constitution-plaza
+18,1968,Voices of Garden Street,Oral histories capture the experiences of North End residents during the tumultuous summer of 1968 and the civil rights era in Hartford.,story,voices-garden-st
+19,1970,Census Demographics Map,Decennial census data visualized spatially reveals the dramatic racial transformation of Hartford neighborhoods over the preceding decades.,map,census-1970
+20,1996,Sheff v. O'Neill Decision,Landmark Connecticut Supreme Court ruling finds that racial and economic segregation in Hartford schools violates the state constitution.,story,sheff-v-oneill
