@@ -5,15 +5,15 @@
       "name": "Run dev server (terminal)",
       "type": "node-terminal",
       "request": "launch",
-      "command": "npm run dev",
-      "cwd": "${workspaceFolder}/website/client"
+      "command": "yarn dev",
+      "cwd": "${workspaceFolder}/apps/web"
     },
     {
       "name": "Launch Chrome + dev server",
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:5173",
-      "webRoot": "${workspaceFolder}/website/client/src",
+      "webRoot": "${workspaceFolder}/apps/web/src",
       "preLaunchTask": "vite: dev server"
     }
   ],
