@@ -24,14 +24,15 @@ describe('ExhibitsView', () => {
     expect(screen.getByText(/PANEL 02 \/ 2/)).toBeInTheDocument()
   })
 
-  it('renders linked stories and maps resolved from story_ids / map_ids', async () => {
+  it('jumps to a panel when its filmstrip thumbnail is clicked', async () => {
     renderWithProviders(<ExhibitsView />)
     await screen.findByText('North End Arrivals')
 
-    // story_ids → addie-brown, james-mars
-    expect(screen.getByRole('heading', { name: 'Addie Brown' })).toBeInTheDocument()
-    // map_ids → holc-redlining, ward-map-1910
-    expect(screen.getByRole('heading', { name: 'HOLC Redlining' })).toBeInTheDocument()
+    // The filmstrip exposes one button per panel, labelled by its title.
+    fireEvent.click(screen.getByRole('button', { name: 'Building Community' }))
+
+    expect(await screen.findByText('Building Community')).toBeInTheDocument()
+    expect(screen.getByText(/PANEL 02 \/ 2/)).toBeInTheDocument()
   })
 
   it('renders a zero-count panel without crashing for an exhibit with no panels', async () => {

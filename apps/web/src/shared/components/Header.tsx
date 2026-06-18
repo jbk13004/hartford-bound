@@ -7,6 +7,7 @@ const navLinks = [
   { to: '/timeline', label: 'Timeline' },
   { to: '/exhibits', label: 'Exhibits' },
   { to: '/about', label: 'About' },
+  { to: '/archive', label: 'Archive' },
 ]
 
 function Header() {

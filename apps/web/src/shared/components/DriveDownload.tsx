@@ -18,8 +18,15 @@ export function DriveDownload({ url, label }: DriveDownloadProps) {
   if (!parsed) return null
 
   return (
-    <a href={driveDownloadUrl(parsed.fileId)} download>
-      {label ?? 'Download original'}
+    <a
+      href={driveDownloadUrl(parsed.fileId)}
+      download
+      aria-label={label ?? 'Download original'}
+      className="inline-flex items-center justify-center text-slate-500 hover:text-sky"
+    >
+      <span className="material-symbols-outlined" aria-hidden="true">
+        download
+      </span>
     </a>
   )
 }

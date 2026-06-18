@@ -4,7 +4,7 @@ import { renderWithProviders } from '@/test/utils'
 import { ArchiveList } from '../components/ArchiveList'
 
 describe('ArchiveList', () => {
-  it('renders the grid of archive items', async () => {
+  it('renders the list of archive items', async () => {
     renderWithProviders(<ArchiveList />)
     expect(await screen.findByText('Albany Avenue Storefronts')).toBeInTheDocument()
     expect(screen.getByText('Fair Housing Petition')).toBeInTheDocument()

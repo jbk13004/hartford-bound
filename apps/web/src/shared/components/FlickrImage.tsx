@@ -13,6 +13,12 @@ export interface FlickrImageProps {
   size: FlickrSize
   alt: string
   className?: string
+  /**
+   * Wrap the image in an attribution link to the Flickr photo page. Defaults to
+   * `true`. Set `false` when the image fills a `<button>` (e.g. a clickable
+   * thumbnail), where the anchor would otherwise swallow the button's click.
+   */
+  linkToSource?: boolean
 }
 
 /**
@@ -23,7 +29,13 @@ export interface FlickrImageProps {
  * A blank or unparseable `url` renders a neutral placeholder box — never a
  * broken `<img>` and never a fake headshot.
  */
-export function FlickrImage({ url, size, alt, className }: FlickrImageProps) {
+export function FlickrImage({
+  url,
+  size,
+  alt,
+  className,
+  linkToSource = true,
+}: FlickrImageProps) {
   const parsed = parseFlickrUrl(url)
 
   if (!parsed) {
@@ -43,15 +55,21 @@ export function FlickrImage({ url, size, alt, className }: FlickrImageProps) {
     .join(', ')
   const sizes = `${FLICKR_SIZES[size]}px`
 
+  const img = (
+    <img
+      src={flickrSrc(parsed, size)}
+      srcSet={srcSet}
+      sizes={sizes}
+      alt={alt}
+      className={className}
+    />
+  )
+
+  if (!linkToSource) return img
+
   return (
     <a href={flickrPage(parsed)} target="_blank" rel="noreferrer">
-      <img
-        src={flickrSrc(parsed, size)}
-        srcSet={srcSet}
-        sizes={sizes}
-        alt={alt}
-        className={className}
-      />
+      {img}
     </a>
   )
 }

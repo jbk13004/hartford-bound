@@ -45,7 +45,7 @@ export function Homepage() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          opacity: 0.2,
+          opacity: 0.1,
         }}
       />
 
@@ -90,7 +90,7 @@ export function Homepage() {
                   <span className="text-black">HARTFORD</span>
                   <span
                     className="absolute inset-0 text-transparent"
-                    style={{ top: '-4px', left: '4px', WebkitTextStroke: '1px #D1D35E' }}
+                    style={{ top: '-4px', left: '4px', WebkitTextStroke: '2px #D1D35E' }}
                     aria-hidden="true"
                   >
                     HARTFORD
@@ -100,7 +100,7 @@ export function Homepage() {
                   <span className="text-black">BOUND</span>
                   <span
                     className="absolute inset-0 text-transparent"
-                    style={{ top: '4px', left: '4px', WebkitTextStroke: '1px #D1D35E' }}
+                    style={{ top: '4px', left: '4px', WebkitTextStroke: '2px #D1D35E' }}
                     aria-hidden="true"
                   >
                     BOUND

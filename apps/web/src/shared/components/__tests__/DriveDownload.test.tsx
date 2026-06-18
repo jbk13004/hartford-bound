@@ -13,14 +13,14 @@ describe('DriveDownload', () => {
     )
   })
 
-  it('uses a custom label when provided', () => {
+  it('uses a custom label as the accessible name when provided', () => {
     render(
       <DriveDownload
         url="https://drive.google.com/open?id=1AbCdEf_123"
         label="Download scan"
       />,
     )
-    expect(screen.getByText('Download scan')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Download scan' })).toBeInTheDocument()
   })
 
   it('renders nothing when the URL is blank', () => {
