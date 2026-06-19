@@ -16,15 +16,21 @@ const markerIcon = (type: MapMarker['type']): string =>
  * Build the marker's DOM element: a uniform circular badge (no per-theme color)
  * carrying the type's Material Symbols glyph. Tailwind v4 scans `.ts` sources,
  * so these literal classes compile.
+ *
+ * Mapbox owns the OUTER element's `transform` (it rewrites `translate(...)` every
+ * frame to position the marker), so the visual badge — and its `hover:scale-110`
+ * transform — live on an inner child. Putting them on the outer element makes the
+ * hover transform clobber Mapbox's positioning, so the icon slides off the cursor
+ * and the click never lands.
  */
 function buildMarkerElement(marker: MapMarker): HTMLDivElement {
   const el = document.createElement('div')
-  el.className =
-    'flex h-9 w-9 items-center justify-center rounded-full bg-white text-black shadow-md ring-2 ring-black cursor-pointer transition-transform hover:scale-110'
+  el.className = 'cursor-pointer'
   el.innerHTML =
+    '<div class="flex h-9 w-9 items-center justify-center rounded-full bg-white text-black shadow-md ring-2 ring-black transition-transform hover:scale-110">' +
     '<span class="material-symbols-outlined text-[20px]">' +
     markerIcon(marker.type) +
-    '</span>'
+    '</span></div>'
   return el
 }
 

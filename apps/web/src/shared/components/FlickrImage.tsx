@@ -85,7 +85,10 @@ export function FlickrImage({
         open={open}
         close={() => setOpen(false)}
         plugins={[Zoom]}
-        slides={[{ src: flickrSrc(parsed, 'k'), alt }]}
+        // 'b' (1024px) is the largest Flickr size reliably generated for every
+        // photo; the 'k' (2048px) size 410s when the original isn't that big,
+        // which left the lightbox empty. Zoom still magnifies up to 3x.
+        slides={[{ src: flickrSrc(parsed, 'b'), alt }]}
         carousel={{ finite: true }}
         render={{ buttonPrev: () => null, buttonNext: () => null }}
         zoom={{ maxZoomPixelRatio: 3 }}
